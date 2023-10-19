@@ -46,6 +46,7 @@ namespace api
                 });
 
             builder.Services.AddAuthorization();
+            builder.Services.AddCors();
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped<ITokenService, TokenService>();
@@ -55,6 +56,7 @@ namespace api
             // Configure the HTTP request pipeline.
 
             app.UseHttpsRedirection();
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
             app.UseAuthorization();
 
