@@ -22,24 +22,22 @@
         </li>
       </ul>
 
-      <!-- <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
-        <img src="{{user.photoUrl || './assets/user.png'}}" alt="user photo">
-        <a class="dropdown-toggle text-light text-decoration-none ms-2" dropdownToggle>Welcome, {{ user.knownAs}}</a>
-        <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item" routerLink="/member/edit">Edit profile</a>
-          <a class="dropdown-item" (click)="logout()">Logout</a>
-        </div>
-      </div> -->
-      <form *ngIf="loginMode" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
-        <input name="userName" [(ngModel)]="model.username" class="form-control me-2" type="text" placeholder="Username">
-        <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password" placeholder="Password">
-        <button class="btn btn-secondary" type="submit">Логін</button>
-        <button class="btn btn-danger ms-2" (click)="onLogin()" type="submit">Назад</button>
-      </form>
+      <div *ngIf="(accountService.currentUser$ | async) as user">
+        <a class="dropdown-item" (click)="logout()">Вийти</a>
+      </div>
 
-      <div *ngIf="!loginMode">
-        <button type="button" (click)="onLogin()" class="btn btn-secondary">Логін</button>
-        <button type="button" class="btn btn-primary ms-2">Реєстрація</button>
+      <div *ngIf="!(accountService.currentUser$ | async)">
+        <form *ngIf="loginMode" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
+          <input name="userName" [(ngModel)]="model.username" class="form-control me-2" type="text" placeholder="Username">
+          <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password" placeholder="Password">
+          <button class="btn btn-secondary" type="submit">Логін</button>
+          <button class="btn btn-danger ms-2" (click)="onLogin()" type="submit">Назад</button>
+        </form>
+
+        <div *ngIf="!loginMode">
+          <button type="button" (click)="onLogin()" class="btn btn-secondary">Логін</button>
+          <button type="button" class="btn btn-primary ms-2">Реєстрація</button>
+        </div>
       </div>
       <!-- <form *ngIf="!(accountService.currentUser$ | async)" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
         <input name="userName" [(ngModel)]="model.userName" class="form-control me-2" type="text" placeholder="Username">
