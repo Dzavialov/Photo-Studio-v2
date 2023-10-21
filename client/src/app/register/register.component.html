@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+  <div class="col-4">
+    <form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+      <h2 class="text-center text-primary">
+        Реєстрація
+      </h2>
+      <hr>
+      <div class="mb-3">
+        <input type="text"
+          class="form-control"
+          name="fullName"
+          [class.is-invalid]="registerForm.get('fullName')?.errors && registerForm.get('fullName')?.touched"
+          formControlName="fullName"
+          placeholder="Ім'я та прізвище"
+        >
+        <div class="invalid-feedback">Введіть повне ім'я</div>
+      </div>
+
+      <div class="mb-3">
+        <input type="text"
+          class="form-control"
+          name="username"
+          [class.is-invalid]="registerForm.get('username')?.errors && registerForm.get('username')?.touched"
+          formControlName="username"
+          placeholder="Ім'я користувача"
+        >
+        <div class="invalid-feedback">Введіть ім'я користувача</div>
+      </div>
+
+      <div class="mb-3">
+        <input type="email"
+          class="form-control"
+          name="email"
+          [class.is-invalid]="registerForm.get('email')?.errors && registerForm.get('email')?.touched"
+          formControlName="email"
+          placeholder="Електронна адреса"
+        >
+        <div class="invalid-feedback" *ngIf="registerForm.get('email')?.hasError('required')">Введіть електронну пошту</div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('email')?.hasError('email')">Введіть правильну електронну адресу</div>
+      </div>
+
+      <div class="mb-3">
+        <input type="password"
+          class="form-control"
+          name="password"
+          [class.is-invalid]="registerForm.get('password')?.errors && registerForm.get('password')?.touched"
+          formControlName="password"
+          placeholder="Пароль"
+        >
+        <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('required')">Введіть пароль</div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('minlength')">Пароль мусить бути довжиною мінімум 6 символів</div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('maxlength')">Пароль мусить бути довжиною максимум 100 символів</div>
+      </div>
+
+      <div class="mb-3">
+        <input type="password"
+          class="form-control"
+          name="password"
+          [class.is-invalid]="registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched"
+          formControlName="confirmPassword"
+          placeholder="Підтвердіть пароль"
+        >
+        <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword')?.hasError('required')">Підтвердіть пароль</div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword')?.hasError('notMatching')">Паролі повинні співпадати</div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-success me-2" type="submit">Зареєструватися</button>
+      </div>
+    </form>
+  </div>
+</div>

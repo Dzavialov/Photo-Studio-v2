@@ -11,7 +11,7 @@ namespace api.DTOs
         [Required]
         public string FullName { get; set; }
         [Required]
-        [StringLength(8, MinimumLength = 5)]
+        [StringLength(100, MinimumLength = 6)]
         public string Password { get; set; }
     }
 }

@@ -5,7 +5,7 @@
         <!-- <ng-container *ngIf="accountService.currentUser$ | async"> -->
         <ng-container>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/members" routerLinkActive="active">Matches</a>
+            <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/lists" routerLinkActive="active">Lists</a>
@@ -23,7 +23,8 @@
       </ul>
 
       <div *ngIf="(accountService.currentUser$ | async) as user">
-        <a class="dropdown-item" (click)="logout()">Вийти</a>
+        <button class="btn btn-danger" (click)="logout()" type="submit">{{user.username}}<i class="fa fa-sign-out ms-1"></i>
+        </button>
       </div>
 
       <div *ngIf="!(accountService.currentUser$ | async)">
@@ -36,7 +37,7 @@
 
         <div *ngIf="!loginMode">
           <button type="button" (click)="onLogin()" class="btn btn-secondary">Логін</button>
-          <button type="button" class="btn btn-primary ms-2">Реєстрація</button>
+          <button type="button" routerLink="/register" class="btn btn-primary ms-2">Реєстрація</button>
         </div>
       </div>
       <!-- <form *ngIf="!(accountService.currentUser$ | async)" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">

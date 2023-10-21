@@ -28,6 +28,8 @@ namespace api
             builder.Services.AddIdentityCore<User>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
             })
                 .AddRoles<IdentityRole<int>>()
                 .AddEntityFrameworkStores<DataContext>();
