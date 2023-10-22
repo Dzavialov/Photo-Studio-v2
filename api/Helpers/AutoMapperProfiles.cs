@@ -9,6 +9,8 @@ namespace api.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<RegisterDto, User>();
+            CreateMap<RoomDto, Room>();
+            CreateMap<RoomImage, RoomImageDto>();
         }
     }
 }
