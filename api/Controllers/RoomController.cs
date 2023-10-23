@@ -52,8 +52,8 @@ namespace api.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("add-image")]
-        public async Task<ActionResult<RoomImageDto>> AddImage(IFormFile file, [FromForm]int roomId)
+        [HttpPost("add-image/{roomId}")]
+        public async Task<ActionResult<RoomImageDto>> AddImage(IFormFile file, [FromRoute]int roomId)
         {
             var room = await _roomRepository.GetRoomByIdAsync(roomId);
 
@@ -77,6 +77,31 @@ namespace api.Controllers
             }
 
             return BadRequest("Problem adding photo.");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("delete-image/{imageId}")]
+        public async Task<ActionResult> DeletePhoto(int imageId, int roomId)
+        {
+            var room = await _roomRepository.GetRoomByIdAsync(roomId);
+
+            if (room is null) return NotFound();
+
+            var image = room.Images.Find(i => i.Id == imageId);
+
+            if (image is null) return NotFound();
+
+            if (image.PublicId is not null)
+            {
+                var result = await _photoService.DeletePhotoAsync(image.PublicId);
+                if (result.Error is not null) return BadRequest(result.Error.Message);
+            }
+
+            room.Images.Remove(image);
+
+            if (await _roomRepository.SaveAllAsync()) return Ok();
+
+            return BadRequest("Problem deleting image.");
         }
     }
 }

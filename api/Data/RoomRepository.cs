@@ -1,5 +1,8 @@
-﻿using api.Entities;
+﻿using api.DTOs;
+using api.Entities;
 using api.Interfaces;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Data
@@ -7,10 +10,12 @@ namespace api.Data
     public class RoomRepository : IRoomRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public RoomRepository(DataContext context)
+        public RoomRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public void AddRoom(Room room)

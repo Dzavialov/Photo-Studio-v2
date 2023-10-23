@@ -13,6 +13,9 @@
           <li class="nav-item">
             <a class="nav-link" aria-disabled="true" routerLink="/messages" routerLinkActive="active">Messages</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-disabled="true" routerLink="/admin-panel" routerLinkActive="active">Admin panel</a>
+          </li>
           <!-- <li class="nav-item" *appHasRole="['Admin', 'Moderator']">
             <a class="nav-link" aria-disabled="true" routerLink="/admin" routerLinkActive="active">Admin</a>
           </li> -->
@@ -23,7 +26,7 @@
       </ul>
 
       <div *ngIf="(accountService.currentUser$ | async) as user">
-        <button class="btn btn-danger" (click)="logout()" type="submit">{{user.username}}<i class="fa fa-sign-out ms-1"></i>
+        <button class="btn btn-danger" (click)="logout()" type="submit">{{user.username}}<i class="fa fa-sign-out ms-2"></i>
         </button>
       </div>
 

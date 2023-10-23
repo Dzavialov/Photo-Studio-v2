@@ -11,6 +11,7 @@ namespace api.Helpers
             CreateMap<RegisterDto, User>();
             CreateMap<RoomDto, Room>();
             CreateMap<RoomImage, RoomImageDto>();
+            CreateMap<Room, RoomDto>();
         }
     }
 }
