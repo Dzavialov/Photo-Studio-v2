@@ -22,4 +22,8 @@ export class RoomService {
   createRoom(model: any) {
     return this.http.post<Room>(this.baseUrl + 'room/create-room', model);
   }
+
+  deleteImage (roomId: number, imageId: number) {
+    return this.http.delete(this.baseUrl + 'room/delete-image/'+ roomId + '/' + imageId)
+  }
 }

@@ -80,8 +80,8 @@ namespace api.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("delete-image/{imageId}")]
-        public async Task<ActionResult> DeletePhoto(int imageId, int roomId)
+        [HttpDelete("delete-image/{roomId}/{imageId}")]
+        public async Task<ActionResult> DeletePhoto(int roomId, int imageId)
         {
             var room = await _roomRepository.GetRoomByIdAsync(roomId);
 

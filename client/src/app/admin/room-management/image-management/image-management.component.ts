@@ -21,4 +21,12 @@ export class ImageManagementComponent implements OnInit{
       next: result => this.room = result
     })
   }
+
+  deleteImage(imageId: number) {
+    this.roomService.deleteImage(this.room!.id, imageId).subscribe({
+      next: () => {
+          this.room!.images = this.room!.images.filter(x => x.id !== imageId)
+        }
+      });
+  }
 }

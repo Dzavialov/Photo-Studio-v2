@@ -2,7 +2,7 @@
   <div class="col-2 mb-1" *ngFor="let image of room.images">
       <img src="{{image.url}}" alt="image of room" class="img-thumbnail mb-1">
       <div class="text-center">
-        <button class="btn btn-sm btn-danger ms-1"><i class="fa fa-trash"></i></button>
+        <button class="btn btn-sm btn-danger ms-1" (click)="deleteImage(image.id)"><i class="fa fa-trash"></i></button>
       </div>
   </div>
 </div>
