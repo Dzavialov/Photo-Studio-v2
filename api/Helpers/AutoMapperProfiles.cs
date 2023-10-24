@@ -12,6 +12,7 @@ namespace api.Helpers
             CreateMap<RoomDto, Room>();
             CreateMap<RoomImage, RoomImageDto>();
             CreateMap<Room, RoomDto>();
+            CreateMap<RoomUpdateDto, Room>();
         }
     }
 }

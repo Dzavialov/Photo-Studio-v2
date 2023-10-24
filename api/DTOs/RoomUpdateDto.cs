@@ -1,10 +1,7 @@
-﻿using api.Entities;
-
-namespace api.DTOs
+﻿namespace api.DTOs
 {
-    public class RoomDto
+    public class RoomUpdateDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string AdditionalInformation { get; set; }

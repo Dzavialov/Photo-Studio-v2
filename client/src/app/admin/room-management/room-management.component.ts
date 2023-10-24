@@ -23,8 +23,13 @@ export class RoomManagementComponent implements OnInit {
     })
   }
 
+  deleteRoom(id: number) {
+    this.roomService.deleteRoom(id).subscribe({
+      next: () => this.getRooms()
+    })
+  }
+
   onCreateRoom() {
     this.createRoomMode = !this.createRoomMode;
   }
-
 }

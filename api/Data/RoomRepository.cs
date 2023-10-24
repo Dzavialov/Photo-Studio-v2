@@ -20,7 +20,12 @@ namespace api.Data
 
         public void AddRoom(Room room)
         {
-            _context.Add(room);
+            _context.Rooms.Add(room);
+        }
+
+        public void RemoveRoom(Room room)
+        {
+            _context.Rooms.Remove(room);
         }
 
         public async Task<Room> GetRoomByIdAsync(int id)

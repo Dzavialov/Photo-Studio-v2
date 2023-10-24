@@ -23,7 +23,11 @@ export class RoomService {
     return this.http.post<Room>(this.baseUrl + 'room/create-room', model);
   }
 
+  deleteRoom(id: number) {
+    return this.http.delete(this.baseUrl + 'room/' + id);
+  }
+
   deleteImage (roomId: number, imageId: number) {
-    return this.http.delete(this.baseUrl + 'room/delete-image/'+ roomId + '/' + imageId)
+    return this.http.delete(this.baseUrl + 'room/delete-image/' + roomId + '/' + imageId)
   }
 }

@@ -17,6 +17,8 @@ import { RoomManagementComponent } from './admin/room-management/room-management
 import { BookingManagementComponent } from './admin/booking-management/booking-management.component';
 import { CreateRoomComponent } from './admin/room-management/create-room/create-room.component';
 import { ImageManagementComponent } from './admin/room-management/image-management/image-management.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { EditRoomComponent } from './admin/room-management/edit-room/edit-room.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { ImageManagementComponent } from './admin/room-management/image-manageme
     RoomManagementComponent,
     BookingManagementComponent,
     CreateRoomComponent,
-    ImageManagementComponent
+    ImageManagementComponent,
+    EditRoomComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { ImageManagementComponent } from './admin/room-management/image-manageme
     }),
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    FileUploadModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

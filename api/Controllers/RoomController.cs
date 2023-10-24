@@ -52,6 +52,36 @@ namespace api.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        [HttpPut("{roomId}")]
+        public async Task<ActionResult> UpdateRoom(RoomUpdateDto roomUpdateDto, [FromRoute]int roomId)
+        {
+            var room = await _roomRepository.GetRoomByIdAsync(roomId);
+
+            if (room is null) return NotFound();
+
+            _mapper.Map(roomUpdateDto, room);
+
+            if (await _roomRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to update user.");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{roomId}")]
+        public async Task<ActionResult> DeleteRoom(int roomId)
+        {
+            var room = await _roomRepository.GetRoomByIdAsync(roomId);
+
+            if (room is null) return NotFound();
+
+            _roomRepository.RemoveRoom(room);
+
+            if (await _roomRepository.SaveAllAsync()) return Ok();
+
+            return BadRequest("Failed to delete a room.");
+        }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost("add-image/{roomId}")]
         public async Task<ActionResult<RoomImageDto>> AddImage(IFormFile file, [FromRoute]int roomId)
         {
@@ -76,7 +106,7 @@ namespace api.Controllers
                 return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, _mapper.Map<RoomImageDto>(photo));
             }
 
-            return BadRequest("Problem adding photo.");
+            return BadRequest("Failed to add an image.");
         }
 
         [Authorize(Roles = "Admin")]
@@ -101,7 +131,7 @@ namespace api.Controllers
 
             if (await _roomRepository.SaveAllAsync()) return Ok();
 
-            return BadRequest("Problem deleting image.");
+            return BadRequest("Failed to delete an image.");
         }
     }
 }
