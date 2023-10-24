@@ -9,7 +9,9 @@ import { RoomService } from 'src/app/_services/room.service';
 })
 export class RoomManagementComponent implements OnInit {
   rooms: Room[] | undefined;
+  roomToEditId: number | undefined;
   createRoomMode = false;
+  editRoomMode = false;
 
   constructor (private roomService: RoomService) {}
 
@@ -31,5 +33,20 @@ export class RoomManagementComponent implements OnInit {
 
   onCreateRoom() {
     this.createRoomMode = !this.createRoomMode;
+  }
+
+  getCreateMode(mode: boolean) {
+    this.createRoomMode = mode;
+    this.ngOnInit();
+  }
+
+  getEditMode(mode: boolean) {
+    this.editRoomMode = mode;
+    this.ngOnInit();
+  }
+
+  onEditRoom(roomId: number) {
+    this.editRoomMode = !this.editRoomMode;
+    this.roomToEditId = roomId;
   }
 }

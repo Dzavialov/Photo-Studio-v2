@@ -1,1 +1,41 @@
-<p>edit-room works!</p>
+<button class="btn btn-info" (click)="onEditRoom()">Назад</button>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <form [formGroup]="editRoomForm" (ngSubmit)="editRoom()" autocomplete="off">
+      <h2 class="text-center text-primary">
+        Редагування кімнати
+      </h2>
+      <hr>
+        <div class="mb-3">
+          <input type="text"
+            class="form-control"
+            name="name"
+            formControlName="name"
+            placeholder="Назва кімнати"
+          >
+        </div>
+
+        <div class="mb-3">
+          <input type="text"
+            class="form-control"
+            name="description"
+            formControlName="description"
+            placeholder="Опис кімнати"
+          >
+        </div>
+
+        <div class="mb-3">
+          <input type="text"
+            class="form-control"
+            name="additionalInformation"
+            formControlName="additionalInformation"
+            placeholder="Додаткова інформація"
+          >
+        </div>
+
+      <div class="text-center">
+        <button class="btn btn-success me-2" type="submit">Зберегти</button>
+      </div>
+    </form>
+  </div>
+</div>

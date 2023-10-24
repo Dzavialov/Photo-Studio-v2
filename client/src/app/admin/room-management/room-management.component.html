@@ -1,7 +1,6 @@
 <div class="container mt-4">
-  <button type="button" class="btn btn-primary" (click)="onCreateRoom()">Створити</button>
-
-  <div *ngIf="!createRoomMode" class="mt-3 w-50">
+  <div *ngIf="!createRoomMode && !editRoomMode" class="mt-3 w-50">
+    <button type="button" class="btn btn-primary" (click)="onCreateRoom()">Створити</button>
     <div class="row">
       <table class="table">
         <thead>
@@ -16,16 +15,18 @@
           <tr *ngFor="let room of rooms">
             <td>{{room.name}}</td>
             <td><button class="btn btn-success" [routerLink]="['/image-management', room.id]">Зображення</button></td>
-            <td><button class="btn btn-warning">Редагувати</button></td>
+            <td><button class="btn btn-warning" (click)="onEditRoom(room.id)" >Редагувати</button></td>
             <td><button class="btn btn-danger" (click)="deleteRoom(room.id)" ><i class="fa fa-trash"></i></button></td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </div>
 
   <div *ngIf="createRoomMode" class="mt-3">
-    <app-create-room></app-create-room>
+    <app-create-room [createRoomModeChild]="createRoomMode" (createRoomModeChange)="getCreateMode($event)"></app-create-room>
+  </div>
+  <div *ngIf="editRoomMode" class="mt-3">
+    <app-edit-room [roomIdChild]="roomToEditId" [editRoomModeChild]="editRoomMode" (editRoomModeChange)="getEditMode($event)"></app-edit-room>
   </div>
 </div>

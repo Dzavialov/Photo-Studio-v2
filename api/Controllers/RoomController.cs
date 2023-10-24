@@ -63,7 +63,7 @@ namespace api.Controllers
 
             if (await _roomRepository.SaveAllAsync()) return NoContent();
 
-            return BadRequest("Failed to update user.");
+            return BadRequest("Failed to update a room.");
         }
 
         [Authorize(Roles = "Admin")]
