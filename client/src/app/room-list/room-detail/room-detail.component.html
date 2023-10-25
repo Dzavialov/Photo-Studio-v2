@@ -1,1 +1,27 @@
-<h1>{{room?.name}}</h1>
+<div class="row" *ngIf="room">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="mt-4">
+          <h1>{{room.name}}</h1>
+        </div>
+        <div class="mt-4">
+          <strong>Опис:</strong>
+          <p>{{room.description}}</p>
+        </div>
+        <div class="mt-4">
+          <strong>Додаткова інформація:</strong>
+          <p>{{room.additionalInformation}}</p>
+        </div>
+      </div>
+      <div class="card-footer">
+          <button class="btn btn-primary">Забронювати</button>
+      </div>
+    </div>
+  </div>
+  <div class="card col-8">
+    <div class="d-flex justify-content-center align-items-center">
+      <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+    </div>
+  </div>
+</div>

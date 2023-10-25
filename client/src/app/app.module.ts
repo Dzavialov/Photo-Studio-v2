@@ -21,6 +21,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { EditRoomComponent } from './admin/room-management/edit-room/edit-room.component';
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomDetailComponent } from './room-list/room-detail/room-detail.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { RoomDetailComponent } from './room-list/room-detail/room-detail.compone
     ReactiveFormsModule,
     BrowserAnimationsModule,
     TabsModule.forRoot(),
-    FileUploadModule
+    FileUploadModule,
+    NgxGalleryModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
