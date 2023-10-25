@@ -19,6 +19,8 @@ import { CreateRoomComponent } from './admin/room-management/create-room/create-
 import { ImageManagementComponent } from './admin/room-management/image-management/image-management.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { EditRoomComponent } from './admin/room-management/edit-room/edit-room.component';
+import { RoomListComponent } from './room-list/room-list.component';
+import { RoomDetailComponent } from './room-list/room-detail/room-detail.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { EditRoomComponent } from './admin/room-management/edit-room/edit-room.c
     BookingManagementComponent,
     CreateRoomComponent,
     ImageManagementComponent,
-    EditRoomComponent
+    EditRoomComponent,
+    RoomListComponent,
+    RoomDetailComponent
   ],
   imports: [
     BrowserModule,
