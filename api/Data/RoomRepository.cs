@@ -10,12 +10,10 @@ namespace api.Data
     public class RoomRepository : IRoomRepository
     {
         private readonly DataContext _context;
-        private readonly IMapper _mapper;
 
-        public RoomRepository(DataContext context, IMapper mapper)
+        public RoomRepository(DataContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public void AddRoom(Room room)
