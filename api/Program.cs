@@ -57,6 +57,7 @@ namespace api
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
             builder.Services.AddScoped<IPhotoService, PhotoService>();
+            builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
             var app = builder.Build();
 

@@ -10,13 +10,13 @@ namespace api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RoomController : ControllerBase
+    public class RoomsController : ControllerBase
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
 
-        public RoomController(IRoomRepository roomRepository, IMapper mapper, IPhotoService photoService)
+        public RoomsController(IRoomRepository roomRepository, IMapper mapper, IPhotoService photoService)
         {
             _roomRepository = roomRepository;
             _mapper = mapper;
@@ -24,29 +24,30 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        public async Task<ActionResult<IEnumerable<RoomDto>>> GetRooms()
         {
             var rooms = await _roomRepository.GetRoomsAsync();
 
-            return Ok(rooms);
+            return Ok(_mapper.Map<IEnumerable<RoomDto>>(rooms));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        public async Task<ActionResult<RoomDto>> GetRoom(int id)
         {
-            return Ok(await _roomRepository.GetRoomByIdAsync(id));
+            var room = await _roomRepository.GetRoomByIdAsync(id);
+            return Ok(_mapper.Map<RoomDto>(room));
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost("create-room")]
-        public async Task<ActionResult> CreateRoom(RoomDto roomDto)
+        public async Task<ActionResult<RoomDto>> CreateRoom(RoomDto roomDto)
         {
             if (roomDto is null) return BadRequest("Object is empty");
 
             var room = _mapper.Map<RoomDto, Room>(roomDto);
             _roomRepository.AddRoom(room);
 
-            if (await _roomRepository.SaveAllAsync()) return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, room);
+            if (await _roomRepository.SaveAllAsync()) return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, _mapper.Map<RoomDto>(room));
 
             return BadRequest("Failed to create a room.");
         }

@@ -10,9 +10,12 @@ namespace api.Helpers
         {
             CreateMap<RegisterDto, User>();
             CreateMap<RoomDto, Room>();
-            CreateMap<RoomImage, RoomImageDto>();
             CreateMap<Room, RoomDto>();
+            CreateMap<RoomImage, RoomImageDto>();
             CreateMap<RoomUpdateDto, Room>();
+            CreateMap<BookingDto, Booking>();
+            CreateMap<Booking, BookingDto>();
+            CreateMap<BookingUpdateDto, Booking>();
         }
     }
 }
