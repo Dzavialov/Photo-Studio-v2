@@ -6,6 +6,7 @@ using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Eventing.Reader;
 
 namespace api.Controllers
@@ -53,7 +54,13 @@ namespace api.Controllers
         public async Task<ActionResult<BookingDto>> CreateBooking(BookingDto bookingDto, [FromRoute] int roomId)
         {
             if (bookingDto is null) return BadRequest("Object is empty");
-            if (!DateTimeValidate(bookingDto.BookFrom, bookingDto.BookTo)) return BadRequest("Invalid datetime input.");
+            if (!FromToValidation(bookingDto.BookFrom, bookingDto.BookTo)) return BadRequest("Invalid datetime input.");
+            
+            bool bookingOverlap = (await _bookingRepository.GetBookingsAsync())
+                .Where(r => r.RoomId == roomId)
+                .Any(x => HasOverlap(x.BookFrom, x.BookTo, bookingDto.BookFrom, bookingDto.BookTo));
+
+            if (bookingOverlap) return BadRequest("There is overlap between booking times.");
 
             var userId = User.GetUserId();
 
@@ -100,10 +107,15 @@ namespace api.Controllers
 
             return BadRequest("Failed to finish booking.");
         }
-        private static bool DateTimeValidate(DateTime from, DateTime to)
+        private static bool FromToValidation(DateTime from, DateTime to)
         {
-            if (from < DateTime.UtcNow ||  to < DateTime.UtcNow || to <= from) return false;
+            if (from < DateTime.UtcNow || to <= from) return false;
             return true;
+        }
+
+        public static bool HasOverlap(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
+        {
+            return start1 < end2 && end1 > start2;
         }
     }
 }
