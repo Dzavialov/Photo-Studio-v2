@@ -22,7 +22,6 @@ export class EditRoomComponent implements OnInit{
     this.roomService.getRoom(this.roomIdChild!).subscribe({
       next: result => {
         this.room = result;
-        console.log(this.room);
         this.initializeForm();
       }
     });
@@ -44,7 +43,6 @@ export class EditRoomComponent implements OnInit{
 
   editRoom() {
     const values = {...this.editRoomForm.value};
-    console.log(values);
     this.roomService.editRoom(this.roomIdChild!, values).subscribe({
       next: () => {
         this.onEditRoom();

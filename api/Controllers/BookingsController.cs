@@ -109,8 +109,7 @@ namespace api.Controllers
         }
         private static bool FromToValidation(DateTime from, DateTime to)
         {
-            if (from < DateTime.UtcNow || to <= from) return false;
-            return true;
+            return !(from < DateTime.UtcNow || to <= from);
         }
 
         public static bool HasOverlap(DateTime start1, DateTime end1, DateTime start2, DateTime end2)

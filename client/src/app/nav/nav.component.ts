@@ -17,7 +17,7 @@ export class NavComponent {
   login(){
     this.accountService.login(this.model).subscribe({
       next: () => this.router.navigateByUrl('/'),
-      error: () => this.toastr.error('Неправельний логін чи пароль')
+      error: () => this.toastr.error('Неправильний логін чи пароль')
     });
   }
 

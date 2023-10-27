@@ -7,21 +7,18 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard {
+export class AuthGuard {
   constructor(private accountService: AccountService, private toastr: ToastrService) {}
 
   canActivate(): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
       map(user => {
-        if (!user) return false;
-        if (user.role ==='Admin') {
-          return true;
-        } else {
-          this.toastr.error('Немає доступу до цієї зони');
+        if(user) return true;
+        else {
+          this.toastr.error('You do not have access to this component.');
           return false;
         }
       })
     )
   }
-
 }

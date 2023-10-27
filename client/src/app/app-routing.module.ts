@@ -7,14 +7,21 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { ImageManagementComponent } from './admin/room-management/image-management/image-management.component';
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomDetailComponent } from './room-list/room-detail/room-detail.component';
+import { BookingComponent } from './booking/booking.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'room-list', component: RoomListComponent},
   {path: 'room-detail/:id', component: RoomDetailComponent},
-  {path: 'admin-panel', runGuardsAndResolvers: 'always', canActivate: [AdminGuard], component: AdminPanelComponent},
-  {path: 'image-management/:id', runGuardsAndResolvers: 'always', canActivate: [AdminGuard], component: ImageManagementComponent},
+  {path: '', runGuardsAndResolvers: 'always',
+    canActivate:[AuthGuard],
+    children:[
+      {path: 'booking/:id', component: BookingComponent},
+      {path: 'admin-panel', runGuardsAndResolvers: 'always', canActivate: [AdminGuard], component: AdminPanelComponent},
+      {path: 'image-management/:id', runGuardsAndResolvers: 'always', canActivate: [AdminGuard], component: ImageManagementComponent},
+    ]}
 ];
 
 @NgModule({

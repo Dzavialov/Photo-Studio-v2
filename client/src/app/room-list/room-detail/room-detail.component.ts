@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
 import { Room } from 'src/app/_models/Room';
+import { User } from 'src/app/_models/User';
+import { AccountService } from 'src/app/_services/account.service';
 import { RoomService } from 'src/app/_services/room.service';
 
 @Component({
@@ -10,15 +14,21 @@ import { RoomService } from 'src/app/_services/room.service';
   styleUrls: ['./room-detail.component.css']
 })
 export class RoomDetailComponent implements OnInit{
-  room: Room | undefined;
+  room: Room |  undefined;
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
-  constructor(private route: ActivatedRoute, private roomService: RoomService) {}
+  user: User | undefined;
+
+  constructor(private route: ActivatedRoute, private router: Router, private roomService: RoomService,
+    private accountService: AccountService, private toastr: ToastrService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: user => this.user = user
+    })
+  }
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     const roomIdFromRoute = Number(routeParams.get('id'));
-    console.log('room id is ' + roomIdFromRoute);
     this.getRoom(roomIdFromRoute);
 
     this.galleryOptions = [{
@@ -26,6 +36,7 @@ export class RoomDetailComponent implements OnInit{
       height: '630px',
       imagePercent: 100,
       thumbnailsColumns: 3,
+      thumbnailsArrows: false,
       imageAnimation: NgxGalleryAnimation.Fade,
       preview: false
     }]
@@ -51,5 +62,14 @@ export class RoomDetailComponent implements OnInit{
         this.galleryImages = this.getImages();
       }
     })
+  }
+
+  bookRoom() {
+    if (!this.user) {
+      this.toastr.error('Для бронювання необхідно залогінитися або зареєструватися')
+    }
+    else {
+      this.router.navigate(['booking', this.room!.id])
+    }
   }
 }

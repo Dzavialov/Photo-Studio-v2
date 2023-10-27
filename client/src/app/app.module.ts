@@ -22,6 +22,8 @@ import { EditRoomComponent } from './admin/room-management/edit-room/edit-room.c
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomDetailComponent } from './room-list/room-detail/room-detail.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { BookingComponent } from './booking/booking.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     ImageManagementComponent,
     EditRoomComponent,
     RoomListComponent,
-    RoomDetailComponent
+    RoomDetailComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     BrowserAnimationsModule,
     TabsModule.forRoot(),
     FileUploadModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    CarouselModule.forRoot()
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

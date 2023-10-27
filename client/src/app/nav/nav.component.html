@@ -26,7 +26,7 @@
       </ul>
 
       <div *ngIf="(accountService.currentUser$ | async) as user">
-        <button class="btn btn-danger" (click)="logout()" type="submit">{{user.username}}<i class="fa fa-sign-out ms-2"></i>
+        <button class="btn btn-outline-danger" (click)="logout()" type="submit">{{user.username}}<i class="fa fa-sign-out ms-2"></i>
         </button>
       </div>
 
@@ -34,12 +34,12 @@
         <form *ngIf="loginMode" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
           <input name="userName" [(ngModel)]="model.username" class="form-control me-2" type="text" placeholder="Username">
           <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password" placeholder="Password">
-          <button class="btn btn-secondary" type="submit">Логін</button>
-          <button class="btn btn-danger ms-2" (click)="onLogin()" type="submit">Назад</button>
+          <button class="btn btn-primary" type="submit">Логін</button>
+          <button class="btn btn-outline-danger ms-2" (click)="onLogin()" type="submit">Назад</button>
         </form>
 
         <div *ngIf="!loginMode">
-          <button type="button" (click)="onLogin()" class="btn btn-secondary">Логін</button>
+          <button type="button" (click)="onLogin()" class="btn btn-primary">Логін</button>
           <button type="button" routerLink="/register" class="btn btn-primary ms-2">Реєстрація</button>
         </div>
       </div>
