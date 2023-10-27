@@ -23,7 +23,7 @@ import { RoomListComponent } from './room-list/room-list.component';
 import { RoomDetailComponent } from './room-list/room-detail/room-detail.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { BookingComponent } from './booking/booking.component';
-import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
@@ -55,7 +55,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     TabsModule.forRoot(),
     FileUploadModule,
     NgxGalleryModule,
-    CarouselModule.forRoot()
+    BsDatepickerModule.forRoot()
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

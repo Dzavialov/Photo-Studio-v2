@@ -15,7 +15,7 @@ export class AuthGuard {
       map(user => {
         if(user) return true;
         else {
-          this.toastr.error('You do not have access to this component.');
+          this.toastr.error('Немає доступу до цієї зони');
           return false;
         }
       })

@@ -109,7 +109,28 @@ namespace api.Controllers
         }
         private static bool FromToValidation(DateTime from, DateTime to)
         {
-            return !(from < DateTime.UtcNow || to <= from);
+            if (from < DateTime.UtcNow || to <= from) return false;
+
+            TimeSpan startTime = TimeSpan.FromHours(9);
+            TimeSpan endTime = TimeSpan.FromHours(21);
+            TimeSpan minTimeDifference = TimeSpan.FromHours(1);
+
+            if (from.TimeOfDay < startTime)
+            {
+                return false;
+            }
+
+            if (to.TimeOfDay > endTime)
+            {
+                return false;
+            }
+
+            if ((to - from) < minTimeDifference)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public static bool HasOverlap(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
