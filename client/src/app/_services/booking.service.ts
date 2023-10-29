@@ -19,4 +19,20 @@ export class BookingService {
 
     return this.http.get<Booking[]>(this.baseUrl + 'bookings/date-bookings', {params: params});
   }
+
+  createBooking(id: number, model: any) {
+    return this.http.post<Booking>(this.baseUrl + 'bookings/book-room/' + id, model)
+  }
+
+  getUserBooking() {
+    return this.http.get<Booking[]>(this.baseUrl + 'bookings/user-bookings');
+  }
+
+  deleteBooking(id: number) {
+    return this.http.delete(this.baseUrl + 'bookings/' + id);
+  }
+
+  getBookings() {
+    return this.http.get<Booking[]>(this.baseUrl + 'bookings');
+  }
 }

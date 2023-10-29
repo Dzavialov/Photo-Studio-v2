@@ -8,17 +8,6 @@
       <div class="mb-3">
         <input type="text"
           class="form-control"
-          name="fullName"
-          [class.is-invalid]="registerForm.get('fullName')?.errors && registerForm.get('fullName')?.touched"
-          formControlName="fullName"
-          placeholder="Ім'я та прізвище"
-        >
-        <div class="invalid-feedback">Введіть повне ім'я</div>
-      </div>
-
-      <div class="mb-3">
-        <input type="text"
-          class="form-control"
           name="username"
           [class.is-invalid]="registerForm.get('username')?.errors && registerForm.get('username')?.touched"
           formControlName="username"

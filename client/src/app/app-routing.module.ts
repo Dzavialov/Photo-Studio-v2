@@ -9,6 +9,7 @@ import { RoomListComponent } from './room-list/room-list.component';
 import { RoomDetailComponent } from './room-list/room-detail/room-detail.component';
 import { BookingComponent } from './room-list/room-detail/booking/booking.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { UserBookingsComponent } from './user-bookings/user-bookings.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
     children:[
       {path: 'admin-panel', runGuardsAndResolvers: 'always', canActivate: [AdminGuard], component: AdminPanelComponent},
       {path: 'image-management/:id', runGuardsAndResolvers: 'always', canActivate: [AdminGuard], component: ImageManagementComponent},
+      {path: 'user-bookings', canActivate: [AuthGuard], component: UserBookingsComponent}
     ]}
 ];
 

@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookingService } from '../../../_services/booking.service';
 import { Booking } from '../../../_models/Booking';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-booking',
@@ -24,7 +25,7 @@ export class BookingComponent implements OnInit{
   isButtonDisabled = false;
 
   constructor(private roomService: RoomService, private fb: FormBuilder, private bookingService: BookingService,
-    private modalService: BsModalService) {}
+    private modalService: BsModalService, private router: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.roomService.getRoom(this.roomIdChild!).subscribe({
@@ -49,7 +50,21 @@ export class BookingComponent implements OnInit{
   }
 
   createBooking() {
+    const dateValue = this.bookingForm.get('datePicker')!.value;
+    const timePickerStartValue = this.bookingForm.get('timePickerStart')!.value;
+    const timePickerEndValue = this.bookingForm.get('timePickerEnd')!.value;
 
+    const bookFrom = new Date(dateValue);
+    bookFrom.setHours(timePickerStartValue.getHours(), timePickerStartValue.getMinutes());
+
+    const bookTo = new Date(dateValue);
+    bookTo.setHours(timePickerEndValue.getHours(), timePickerEndValue.getMinutes());
+    console.log({bookFrom, bookTo});
+
+    this.bookingService.createBooking(this.room!.id, {bookFrom, bookTo}).subscribe({
+      next: () => this.router.navigateByUrl('/'),
+      error: () => this.toastr.error('Помилка бронювання. Перевірте правильність даних')
+    })
   }
 
   openModal(template: TemplateRef<any>) {

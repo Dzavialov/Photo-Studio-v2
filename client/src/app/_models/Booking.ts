@@ -4,4 +4,6 @@ export interface Booking {
   bookTo: Date;
   status: string;
   fileUrl: string;
+  username: string;
+  roomId: number;
 }

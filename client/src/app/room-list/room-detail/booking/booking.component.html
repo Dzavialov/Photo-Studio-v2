@@ -8,36 +8,35 @@
           placeholder="Оберіть дату"
           class="form-control"
           name="datePicker"
+          [isDisabled]="isButtonDisabled"
           formControlName="datePicker"
           [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY' }"
           bsDatepicker>
         <button class="btn btn-info mt-2" [disabled]="isButtonDisabled" (click)="getDateBookings()">Далі</button>
       </div>
     </div>
-    <div class="row justify-content-center align-items-center">
-      <div class="col-3">
-        <div *ngIf="bookings">
-          <label for="timePickerStart" class="mt-4 mb-2">Час початку бронювання</label>
-          <timepicker formControlName="timePickerStart" name="timePickerStart" [minuteStep]="30" [showMeridian]="ismeridian"></timepicker>
+    <div *ngIf="bookings">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-3">
+            <label for="timePickerStart" class="mt-4 mb-2">Час початку бронювання</label>
+            <timepicker formControlName="timePickerStart" name="timePickerStart" [minuteStep]="30" [showMeridian]="ismeridian"></timepicker>
         </div>
       </div>
-    </div>
-    <div class="row justify-content-center align-items-center">
-      <div class="col-3">
-        <div *ngIf="bookings">
-          <label for="timePickerEnd" class="mt-4 mb-2">Час кінця бронювання</label>
-          <timepicker formControlName="timePickerEnd" name="timePickerEnd" [minuteStep]="30" [showMeridian]="ismeridian"></timepicker>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-3">
+            <label for="timePickerEnd" class="mt-4 mb-2">Час кінця бронювання</label>
+            <timepicker formControlName="timePickerEnd" name="timePickerEnd" [minuteStep]="30" [showMeridian]="ismeridian"></timepicker>
         </div>
       </div>
     </div>
   </div>
+  <div class="row justify-content-center align-items-center">
+  <div class="col-3 mt-3" *ngIf="bookings">
+    <button class="btn btn-primary" type="submit" >Забронювати</button>
+  </div>
+</div>
 </form>
 <div class="container">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-3 mt-3" *ngIf="bookings">
-      <button class="btn btn-primary">Забронювати</button>
-    </div>
-  </div>
   <div class="row justify-content-center align-items-center">
     <div class="col-4 mt-3" *ngIf="bookings && bookings.length > 0">
           <button type="button" class="btn btn-danger" (click)="openModal(template)">Переглянути зайнятий час</button>
@@ -50,7 +49,7 @@
             </div>
             <div class="modal-body">
               <div *ngFor="let booking of bookings">
-                {{ booking.bookFrom | date: 'H:mm' }} - {{ booking.bookTo | date: 'H:mm' }}
+                {{ booking.bookFrom + 'Z'| date: 'H:mm' }} - {{ booking.bookTo + 'Z'| date: 'H:mm' }}
               </div>
             </div>
           </ng-template>

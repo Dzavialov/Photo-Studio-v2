@@ -26,6 +26,7 @@ import { BookingComponent } from './room-list/room-detail/booking/booking.compon
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { UserBookingsComponent } from './user-bookings/user-bookings.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     EditRoomComponent,
     RoomListComponent,
     RoomDetailComponent,
-    BookingComponent
+    BookingComponent,
+    UserBookingsComponent
   ],
   imports: [
     BrowserModule,

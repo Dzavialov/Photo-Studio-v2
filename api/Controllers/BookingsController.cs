@@ -69,9 +69,11 @@ namespace api.Controllers
             if (bookingOverlap) return BadRequest("There is overlap between booking times.");
 
             var userId = User.GetUserId();
+            var userName = User.GetUsername();
 
             bookingDto.UserId = userId;
             bookingDto.RoomId = roomId;
+            bookingDto.Username = userName;
             bookingDto.Status = "In Process";
 
             var booking = _mapper.Map<Booking>(bookingDto);
@@ -117,8 +119,8 @@ namespace api.Controllers
         {
             if (from < DateTime.UtcNow || to <= from) return false;
 
-            TimeSpan startTime = TimeSpan.FromHours(9);
-            TimeSpan endTime = TimeSpan.FromHours(21);
+            TimeSpan startTime = TimeSpan.FromHours(7);
+            TimeSpan endTime = TimeSpan.FromHours(19);
             TimeSpan minTimeDifference = TimeSpan.FromHours(1);
 
             if (from.TimeOfDay < startTime)

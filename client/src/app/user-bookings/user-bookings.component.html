@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <div class="mt-3 w-50">
+    <div class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 20%">Початок бронювання</th>
+            <th style="width: 20%">Кінець бронювання</th>
+            <th style="width: 20%">Статус бронювання</th>
+            <th style="width: 25%">Посилання на файл</th>
+            <th style="width: 5%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings">
+            <td>{{booking.bookFrom + 'Z'| date: 'd.MM, H:mm'}}</td>
+            <td>{{booking.bookTo + 'Z' | date: 'd.MM, H:mm'}}</td>
+            <td>{{booking.status}}</td>
+            <td>{{booking.fileUrl}}</td>
+            <td><button class="btn btn-danger" (click)="deleteBooking(booking.id)" ><i class="fa fa-trash"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
