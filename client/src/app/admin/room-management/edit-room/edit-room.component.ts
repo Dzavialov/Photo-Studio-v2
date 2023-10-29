@@ -16,7 +16,7 @@ export class EditRoomComponent implements OnInit{
   @Output() editRoomModeChange = new EventEmitter<boolean>();
   room: Room | undefined;
 
-  constructor(private roomService: RoomService, private router: Router, private fb: FormBuilder) {}
+  constructor(private roomService: RoomService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.roomService.getRoom(this.roomIdChild!).subscribe({

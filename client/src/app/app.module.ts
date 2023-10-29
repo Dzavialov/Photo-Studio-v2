@@ -22,8 +22,10 @@ import { EditRoomComponent } from './admin/room-management/edit-room/edit-room.c
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomDetailComponent } from './room-list/room-detail/room-detail.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-import { BookingComponent } from './booking/booking.component';
+import { BookingComponent } from './room-list/room-detail/booking/booking.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     TabsModule.forRoot(),
     FileUploadModule,
     NgxGalleryModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

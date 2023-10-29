@@ -1,13 +1,11 @@
-﻿using api.Data;
-using api.DTOs;
+﻿using api.DTOs;
 using api.Entities;
 using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Eventing.Reader;
 
 namespace api.Controllers
 {
@@ -34,15 +32,23 @@ namespace api.Controllers
 
         [Authorize(Roles = "User, Admin")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
+        public async Task<ActionResult<IEnumerable<BookingDto>>> GetBookings()
         {
             var bookings = await _bookingRepository.GetBookingsAsync();
             return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
         }
 
         [Authorize(Roles = "User")]
+        [HttpGet("date-bookings")]
+        public async Task<ActionResult<IEnumerable<BookingDto>>> GetDateBookings([FromQuery] DateBookingQuery query)
+        {
+            var bookings = (await _bookingRepository.GetBookingsAsync()).Where(r => r.RoomId == query.roomId).Where(x => x.BookFrom.Date == query.bookingDate.Date);
+            return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
+        }
+
+        [Authorize(Roles = "User")]
         [HttpGet("user-bookings")]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetUserBookings()
+        public async Task<ActionResult<IEnumerable<BookingDto>>> GetUserBookings()
         {
             var userId = User.GetUserId();
             var bookings = await _bookingRepository.GetBookingsByUserIdAsync(userId);

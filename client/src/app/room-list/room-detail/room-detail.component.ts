@@ -18,6 +18,8 @@ export class RoomDetailComponent implements OnInit{
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
   user: User | undefined;
+  roomToBookId: number | undefined;
+  bookingRoomMode = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private roomService: RoomService,
     private accountService: AccountService, private toastr: ToastrService) {
@@ -64,12 +66,23 @@ export class RoomDetailComponent implements OnInit{
     })
   }
 
-  bookRoom() {
+  getBookingMode(mode: boolean) {
+    this.bookingRoomMode = mode;
+    this.ngOnInit();
+  }
+
+  // onBookingRoom(roomId: number) {
+  //   this.bookingRoomMode = !this.bookingRoomMode;
+  //   this.roomToBookId = roomId;
+  // }
+
+  onBookingRoom(roomId: number) {
     if (!this.user) {
       this.toastr.error('Для бронювання необхідно залогінитися або зареєструватися')
     }
     else {
-      this.router.navigate(['booking', this.room!.id])
+      this.bookingRoomMode = !this.bookingRoomMode;
+    this.roomToBookId = roomId;
     }
   }
 }
