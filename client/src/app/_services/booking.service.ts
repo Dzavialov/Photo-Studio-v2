@@ -35,4 +35,8 @@ export class BookingService {
   getBookings() {
     return this.http.get<Booking[]>(this.baseUrl + 'bookings');
   }
+
+  finishBooking(id:number, model: any) {
+    return this.http.put<Booking>(this.baseUrl + 'bookings/' + id, model);
+  }
 }

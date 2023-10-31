@@ -24,8 +24,10 @@ export class BookingManagementComponent implements OnInit{
     })
   }
 
-  onInputChange(event: any) {
-    this.isFileInputFilled = !event.target.value;
+  finishBooking(bookingId: number, fileUrl: string) {
+    this.bookingService.finishBooking(bookingId, {fileUrl}).subscribe({
+      next: () => this.getBookings()
+    })
   }
 
   deleteBooking(bookingId: number) {

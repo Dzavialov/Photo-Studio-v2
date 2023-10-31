@@ -43,7 +43,7 @@ export class ImageManagementComponent implements OnInit{
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'room/add-image/' + this.room?.id,
+      url: this.baseUrl + 'rooms/add-image/' + this.room?.id,
       authToken: 'Bearer ' + this.user?.token,
       isHTML5: true,
       allowedFileType: ['image'],

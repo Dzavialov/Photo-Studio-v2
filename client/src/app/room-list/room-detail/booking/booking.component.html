@@ -1,8 +1,8 @@
-<button class="btn btn-info mb-2" (click)="onBookingRoom()">Назад</button>
+<button class="btn btn-outline-info mb-2" (click)="onBookingRoom()">Назад</button>
 <form [formGroup]="bookingForm" (ngSubmit)="createBooking()" autocomplete="off">
   <div class="container">
     <div class="row justify-content-center align-items-center">
-      <div class="col-3">
+      <div class="col-md-3">
         <label for="datePicker" class="mt-3 mb-2">Дата бронювання</label>
         <input type="text"
           placeholder="Оберіть дату"
@@ -17,13 +17,13 @@
     </div>
     <div *ngIf="bookings">
       <div class="row justify-content-center align-items-center">
-        <div class="col-3">
+        <div class="col-md-3">
             <label for="timePickerStart" class="mt-4 mb-2">Час початку бронювання</label>
             <timepicker formControlName="timePickerStart" name="timePickerStart" [minuteStep]="30" [showMeridian]="ismeridian"></timepicker>
         </div>
       </div>
       <div class="row justify-content-center align-items-center">
-        <div class="col-3">
+        <div class="col-md-3">
             <label for="timePickerEnd" class="mt-4 mb-2">Час кінця бронювання</label>
             <timepicker formControlName="timePickerEnd" name="timePickerEnd" [minuteStep]="30" [showMeridian]="ismeridian"></timepicker>
         </div>
@@ -31,14 +31,14 @@
     </div>
   </div>
   <div class="row justify-content-center align-items-center">
-  <div class="col-3 mt-3" *ngIf="bookings">
+  <div class="col-md-3 mt-3" *ngIf="bookings">
     <button class="btn btn-primary" type="submit" >Забронювати</button>
   </div>
 </div>
 </form>
 <div class="container">
   <div class="row justify-content-center align-items-center">
-    <div class="col-4 mt-3" *ngIf="bookings && bookings.length > 0">
+    <div class="col-md-4 mt-3" *ngIf="bookings && bookings.length > 0">
           <button type="button" class="btn btn-danger" (click)="openModal(template)">Переглянути зайнятий час</button>
           <ng-template #template>
             <div class="modal-header">

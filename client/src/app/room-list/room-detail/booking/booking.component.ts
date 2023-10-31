@@ -72,8 +72,8 @@ export class BookingComponent implements OnInit{
   }
 
   getDateBookings(){
-    this.isButtonDisabled = true;
     const value = this.bookingForm.get('datePicker')!.value;
+    if(value) this.isButtonDisabled = true;
     this.bookingService.getDateBookings(value, this.room!.id).subscribe({
       next: result => {
         this.bookings = result

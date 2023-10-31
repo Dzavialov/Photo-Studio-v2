@@ -1,28 +1,24 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
   <div class="container">
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active"> Фотостудія Веселка</a>
+    <div class="collapse navbar-collapse" id="nav">
+      <a class="navbar-brand" routerLink="/" routerLinkActive="active">
+        <img src="assets/logo.png" alt="Header image" width="120" height="60" />
+      </a>
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <!-- <ng-container *ngIf="accountService.currentUser$ | async"> -->
         <ng-container>
           <li class="nav-item">
             <a class="nav-link" routerLink="/room-list" routerLinkActive="active">Локації</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/lists" routerLinkActive="active">Lists</a>
+          <li class="nav-item" *appHasRole="'User'">
+            <a class="nav-link" aria-disabled="true" routerLink="/user-bookings" routerLinkActive="active">Мої бонювання</a>
+          </li>
+          <li class="nav-item" *appHasRole="'Admin'">
+            <a class="nav-link" aria-disabled="true" routerLink="/admin-panel" routerLinkActive="active">Панель адміністратора</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-disabled="true" routerLink="/user-bookings" routerLinkActive="active">User Bookings</a>
+            <a class="nav-link" aria-disabled="true" routerLink="/" routerLinkActive="active">Контакти</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-disabled="true" routerLink="/admin-panel" routerLinkActive="active">Admin panel</a>
-          </li>
-          <!-- <li class="nav-item" *appHasRole="['Admin', 'Moderator']">
-            <a class="nav-link" aria-disabled="true" routerLink="/admin" routerLinkActive="active">Admin</a>
-          </li> -->
         </ng-container>
-        <li class="nav-item">
-          <a class="nav-link" aria-disabled="true" routerLink="/errors" routerLinkActive="active">Errors</a>
-        </li>
       </ul>
 
       <div *ngIf="(accountService.currentUser$ | async) as user">
@@ -43,10 +39,6 @@
           <button type="button" routerLink="/register" class="btn btn-primary ms-2">Реєстрація</button>
         </div>
       </div>
-      <!-- <form *ngIf="!(accountService.currentUser$ | async)" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
-        <input name="userName" [(ngModel)]="model.userName" class="form-control me-2" type="text" placeholder="Username">
-        <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password" placeholder="Password">
-        <button class="btn btn-success" type="submit">Login</button>
-      </form> -->
-  </div>
-</nav>
+    </div>
+    </div>
+  </nav>

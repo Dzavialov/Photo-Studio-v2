@@ -27,6 +27,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { UserBookingsComponent } from './user-bookings/user-bookings.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { FooterComponent } from './footer/footer.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
 
 
 @NgModule({
@@ -44,7 +47,9 @@ import { UserBookingsComponent } from './user-bookings/user-bookings.component';
     RoomListComponent,
     RoomDetailComponent,
     BookingComponent,
-    UserBookingsComponent
+    UserBookingsComponent,
+    FooterComponent,
+    HasRoleDirective
   ],
   imports: [
     BrowserModule,
@@ -62,6 +67,7 @@ import { UserBookingsComponent } from './user-bookings/user-bookings.component';
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     ModalModule.forRoot(),
+    BsDropdownModule.forRoot()
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
