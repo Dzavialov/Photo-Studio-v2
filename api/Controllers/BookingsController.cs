@@ -39,7 +39,9 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookingDto>>> GetBookings()
         {
-            var bookings = (await _bookingRepository.GetBookingsAsync()).Where(s => s.Status == "In Process");
+            var bookings = (await _bookingRepository.GetBookingsAsync())
+                .Where(s => s.Status == "In Process")
+                .OrderBy(b => b.BookFrom);
             return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
         }
 

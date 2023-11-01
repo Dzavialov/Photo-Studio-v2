@@ -46,6 +46,14 @@ export class RegisterComponent implements OnInit{
     this.accountService.register(values).subscribe({
       next: () => {
         this.router.navigateByUrl('/')
+      },
+      error: message => {
+        if (message.error === 'Username is already taken.') {
+          this.toastr.error('Юзернейм зайнятий')
+        }
+        if (message.error[0].code === 'PasswordRequiresDigit'){
+          this.toastr.error('Пароль має містити хоча б одну цифру')
+        }
       }
     })
   }

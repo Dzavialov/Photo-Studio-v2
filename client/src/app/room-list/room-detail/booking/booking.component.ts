@@ -64,7 +64,7 @@ export class BookingComponent implements OnInit{
     const bookTo  = bookToDate.toISOString();
 
     this.bookingService.createBooking(this.room!.id, {bookFrom, bookTo}).subscribe({
-      next: () => this.router.navigateByUrl('/'),
+      next: () => this.router.navigateByUrl('/user-bookings'),
       error: () => this.toastr.error('Помилка бронювання. Перевірте правильність даних')
     })
   }
