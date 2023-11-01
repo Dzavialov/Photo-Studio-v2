@@ -21,7 +21,7 @@
               <td>{{booking.roomId}}</td>
               <td><input value="{{booking.fileUrl}}" [(ngModel)]="booking.fileUrl" type="text" class="form-control"></td>
               <td><button class="btn btn-danger" (click)="deleteBooking(booking.id)" ><i class="fa fa-trash"></i></button></td>
-              <td><button class="btn btn-primary" [disabled]="!booking.fileUrl" (click)="finishBooking(booking.id, booking.fileUrl)" ><i class="fa fa-check-square-o"></i></button></td>
+              <td><button class="btn btn-primary" (click)="finishBooking(booking.id, booking.fileUrl)" ><i class="fa fa-check-square-o"></i></button></td>
           </tr>
         </tbody>
       </table>

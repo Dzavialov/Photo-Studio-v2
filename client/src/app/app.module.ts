@@ -69,7 +69,7 @@ import { RulesComponent } from './rules/rules.component';
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     ModalModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

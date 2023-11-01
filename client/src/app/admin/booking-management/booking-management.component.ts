@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Booking } from 'src/app/_models/Booking';
 import { BookingService } from 'src/app/_services/booking.service';
 import { RoomService } from 'src/app/_services/room.service';
@@ -10,9 +11,8 @@ import { RoomService } from 'src/app/_services/room.service';
 })
 export class BookingManagementComponent implements OnInit{
   bookings: Booking[] | undefined;
-  isFileInputFilled = false;
 
-  constructor(private bookingService: BookingService) {}
+  constructor(private bookingService: BookingService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.getBookings();
@@ -25,8 +25,13 @@ export class BookingManagementComponent implements OnInit{
   }
 
   finishBooking(bookingId: number, fileUrl: string) {
+    if(fileUrl === null) {
+      this.toastr.error('Додайте посилання на файл')
+      return;
+    }
     this.bookingService.finishBooking(bookingId, {fileUrl}).subscribe({
-      next: () => this.getBookings()
+      next: () => this.getBookings(),
+      error: () => this.toastr.error('Виникла помилка під час закінчення бронювання')
     })
   }
 
