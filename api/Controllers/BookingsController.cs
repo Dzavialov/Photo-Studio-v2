@@ -6,6 +6,9 @@ using api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using SendGrid.Helpers.Mail.Model;
 
 namespace api.Controllers
 {
@@ -14,11 +17,13 @@ namespace api.Controllers
     public class BookingsController : ControllerBase
     {
         private readonly IBookingRepository _bookingRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public BookingsController(IBookingRepository bookingRepository, IMapper mapper)
+        public BookingsController(IBookingRepository bookingRepository, IUserRepository userRepository, IMapper mapper)
         {
             _bookingRepository = bookingRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
 
@@ -34,7 +39,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookingDto>>> GetBookings()
         {
-            var bookings = await _bookingRepository.GetBookingsAsync();
+            var bookings = (await _bookingRepository.GetBookingsAsync()).OrderByDescending(s => s.Status);
             return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
         }
 
@@ -68,12 +73,9 @@ namespace api.Controllers
 
             if (bookingOverlap) return BadRequest("There is overlap between booking times.");
 
-            var userId = User.GetUserId();
-            var userName = User.GetUsername();
-
-            bookingDto.UserId = userId;
+            bookingDto.UserId = User.GetUserId();
             bookingDto.RoomId = roomId;
-            bookingDto.Username = userName;
+            bookingDto.Username = User.GetUsername();
             bookingDto.Status = "In Process";
 
             var booking = _mapper.Map<Booking>(bookingDto);
@@ -111,9 +113,27 @@ namespace api.Controllers
 
             _mapper.Map(bookingUpdateDto, booking);
 
-            if (await _bookingRepository.SaveAllAsync()) return NoContent();
-
+            if (await _bookingRepository.SaveAllAsync()) 
+            {
+                await SendEmailAsync(booking);
+                return NoContent();
+            }
             return BadRequest("Failed to finish booking.");
+        }
+
+        public async Task SendEmailAsync(Booking booking)
+        {
+            var user = await _userRepository.GetUserByIdAsync(booking.UserId);
+            var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+            var client = new SendGridClient(apiKey);
+            var msg = new SendGridMessage()
+            {
+                From = new EmailAddress("forsteam0014@gmail.com", "Фотостудія Веселка"),
+                Subject = "Результати фотозйомки",
+                PlainTextContent = $"Результати вашої фотосесії вже готові і знаходяться на сайті в розділі Мої Бронювання або за посиланням {booking.FileUrl}",
+            };
+            msg.AddTo(new EmailAddress(user.Email, user.UserName));
+            await client.SendEmailAsync(msg);
         }
         private static bool FromToValidation(DateTime from, DateTime to)
         {

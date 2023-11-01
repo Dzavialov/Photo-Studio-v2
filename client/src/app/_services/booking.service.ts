@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { Booking } from '../_models/Booking';
+import { DateObject } from 'ngx-bootstrap/chronos/types';
 
 @Injectable({
   providedIn: 'root'

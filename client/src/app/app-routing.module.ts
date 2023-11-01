@@ -10,12 +10,14 @@ import { RoomDetailComponent } from './room-list/room-detail/room-detail.compone
 import { BookingComponent } from './room-list/room-detail/booking/booking.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserBookingsComponent } from './user-bookings/user-bookings.component';
+import { RulesComponent } from './rules/rules.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'room-list', component: RoomListComponent},
   {path: 'room-detail/:id', component: RoomDetailComponent},
+  {path: 'rules', component: RulesComponent},
   {path: '', runGuardsAndResolvers: 'always',
     canActivate:[AuthGuard],
     children:[

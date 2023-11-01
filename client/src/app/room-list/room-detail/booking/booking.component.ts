@@ -7,6 +7,7 @@ import { BookingService } from '../../../_services/booking.service';
 import { Booking } from '../../../_models/Booking';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-booking',
@@ -54,12 +55,13 @@ export class BookingComponent implements OnInit{
     const timePickerStartValue = this.bookingForm.get('timePickerStart')!.value;
     const timePickerEndValue = this.bookingForm.get('timePickerEnd')!.value;
 
-    const bookFrom = new Date(dateValue);
-    bookFrom.setHours(timePickerStartValue.getHours(), timePickerStartValue.getMinutes());
+    const bookFromDate = new Date(dateValue);
+    bookFromDate.setHours(timePickerStartValue.getHours(), timePickerStartValue.getMinutes());
+    const bookFrom = bookFromDate.toISOString();
 
-    const bookTo = new Date(dateValue);
-    bookTo.setHours(timePickerEndValue.getHours(), timePickerEndValue.getMinutes());
-    console.log({bookFrom, bookTo});
+    const bookToDate = new Date(dateValue);
+    bookToDate.setHours(timePickerEndValue.getHours(), timePickerEndValue.getMinutes());
+    const bookTo  = bookToDate.toISOString();
 
     this.bookingService.createBooking(this.room!.id, {bookFrom, bookTo}).subscribe({
       next: () => this.router.navigateByUrl('/'),
@@ -72,7 +74,8 @@ export class BookingComponent implements OnInit{
   }
 
   getDateBookings(){
-    const value = this.bookingForm.get('datePicker')!.value;
+    const value = new Date(this.bookingForm.get('datePicker')!.value);
+    value.setHours(9,0);
     if(value) this.isButtonDisabled = true;
     this.bookingService.getDateBookings(value, this.room!.id).subscribe({
       next: result => {

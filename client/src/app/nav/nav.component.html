@@ -10,13 +10,16 @@
             <a class="nav-link" routerLink="/room-list" routerLinkActive="active">Локації</a>
           </li>
           <li class="nav-item" *appHasRole="'User'">
-            <a class="nav-link" aria-disabled="true" routerLink="/user-bookings" routerLinkActive="active">Мої бонювання</a>
+            <a class="nav-link" aria-disabled="true" routerLink="/user-bookings" routerLinkActive="active">Мої бронювання</a>
           </li>
           <li class="nav-item" *appHasRole="'Admin'">
             <a class="nav-link" aria-disabled="true" routerLink="/admin-panel" routerLinkActive="active">Панель адміністратора</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-disabled="true" routerLink="/" routerLinkActive="active">Контакти</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-disabled="true" routerLink="/rules" routerLinkActive="active">Правила</a>
           </li>
         </ng-container>
       </ul>
