@@ -9,6 +9,5 @@ namespace api.Interfaces
         void RemoveRoom(Room room);
         Task<IEnumerable<Room>> GetRoomsAsync();
         Task<Room> GetRoomByIdAsync(int id);
-        Task<bool> SaveAllAsync();
     }
 }

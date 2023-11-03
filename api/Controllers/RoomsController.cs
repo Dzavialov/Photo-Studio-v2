@@ -12,13 +12,13 @@ namespace api.Controllers
     [Route("api/[controller]")]
     public class RoomsController : ControllerBase
     {
-        private readonly IRoomRepository _roomRepository;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
 
-        public RoomsController(IRoomRepository roomRepository, IMapper mapper, IPhotoService photoService)
+        public RoomsController(IUnitOfWork uow, IMapper mapper, IPhotoService photoService)
         {
-            _roomRepository = roomRepository;
+            _uow = uow;
             _mapper = mapper;
             _photoService = photoService;
         }
@@ -26,7 +26,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomDto>>> GetRooms()
         {
-            var rooms = await _roomRepository.GetRoomsAsync();
+            var rooms = await _uow.RoomRepository.GetRoomsAsync();
 
             return Ok(_mapper.Map<IEnumerable<RoomDto>>(rooms));
         }
@@ -34,7 +34,7 @@ namespace api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RoomDto>> GetRoom(int id)
         {
-            var room = await _roomRepository.GetRoomByIdAsync(id);
+            var room = await _uow.RoomRepository.GetRoomByIdAsync(id);
             return Ok(_mapper.Map<RoomDto>(room));
         }
 
@@ -45,9 +45,9 @@ namespace api.Controllers
             if (roomDto is null) return BadRequest("Object is empty");
 
             var room = _mapper.Map<RoomDto, Room>(roomDto);
-            _roomRepository.AddRoom(room);
+            _uow.RoomRepository.AddRoom(room);
 
-            if (await _roomRepository.SaveAllAsync()) return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, _mapper.Map<RoomDto>(room));
+            if (await _uow.Complete()) return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, _mapper.Map<RoomDto>(room));
 
             return BadRequest("Failed to create a room.");
         }
@@ -56,13 +56,13 @@ namespace api.Controllers
         [HttpPut("{roomId}")]
         public async Task<ActionResult> UpdateRoom(RoomUpdateDto roomUpdateDto, [FromRoute]int roomId)
         {
-            var room = await _roomRepository.GetRoomByIdAsync(roomId);
+            var room = await _uow.RoomRepository.GetRoomByIdAsync(roomId);
 
             if (room is null) return NotFound();
 
             _mapper.Map(roomUpdateDto, room);
 
-            if (await _roomRepository.SaveAllAsync()) return NoContent();
+            if (await _uow.Complete()) return NoContent();
 
             return BadRequest("Failed to update a room.");
         }
@@ -71,13 +71,13 @@ namespace api.Controllers
         [HttpDelete("{roomId}")]
         public async Task<ActionResult> DeleteRoom(int roomId)
         {
-            var room = await _roomRepository.GetRoomByIdAsync(roomId);
+            var room = await _uow.RoomRepository.GetRoomByIdAsync(roomId);
 
             if (room is null) return NotFound();
 
-            _roomRepository.RemoveRoom(room);
+            _uow.RoomRepository.RemoveRoom(room);
 
-            if (await _roomRepository.SaveAllAsync()) return Ok();
+            if (await _uow.Complete()) return Ok();
 
             return BadRequest("Failed to delete a room.");
         }
@@ -86,7 +86,7 @@ namespace api.Controllers
         [HttpPost("add-image/{roomId}")]
         public async Task<ActionResult<RoomImageDto>> AddImage(IFormFile file, [FromRoute]int roomId)
         {
-            var room = await _roomRepository.GetRoomByIdAsync(roomId);
+            var room = await _uow.RoomRepository.GetRoomByIdAsync(roomId);
 
             if (room is null) return NotFound();
 
@@ -102,7 +102,7 @@ namespace api.Controllers
 
             room.Images.Add(photo);
 
-            if (await _roomRepository.SaveAllAsync())
+            if (await _uow.Complete())
             {
                 return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, _mapper.Map<RoomImageDto>(photo));
             }
@@ -114,7 +114,7 @@ namespace api.Controllers
         [HttpDelete("delete-image/{roomId}/{imageId}")]
         public async Task<ActionResult> DeletePhoto(int roomId, int imageId)
         {
-            var room = await _roomRepository.GetRoomByIdAsync(roomId);
+            var room = await _uow.RoomRepository.GetRoomByIdAsync(roomId);
 
             if (room is null) return NotFound();
 
@@ -130,7 +130,7 @@ namespace api.Controllers
 
             room.Images.Remove(image);
 
-            if (await _roomRepository.SaveAllAsync()) return Ok();
+            if (await _uow.Complete()) return Ok();
 
             return BadRequest("Failed to delete an image.");
         }

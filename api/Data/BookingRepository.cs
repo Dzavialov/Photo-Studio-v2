@@ -38,11 +38,5 @@ namespace api.Data
         {
             _context.Bookings.Remove(booking);
         }
-
-        public async Task<bool> SaveAllAsync()
-        {
-            var result = await _context.SaveChangesAsync() > 0;
-            return result;
-        }
     }
 }

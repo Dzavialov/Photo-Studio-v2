@@ -10,6 +10,5 @@ namespace api.Interfaces
         Task<IEnumerable<Booking>> GetBookingsAsync();
         Task<Booking> GetBookingByIdAsync(int id);
         Task<IEnumerable<Booking>> GetBookingsByUserIdAsync(int id);
-        Task<bool> SaveAllAsync();
     }
 }

@@ -16,14 +16,12 @@ namespace api.Controllers
     [Route("api/[controller]")]
     public class BookingsController : ControllerBase
     {
-        private readonly IBookingRepository _bookingRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public BookingsController(IBookingRepository bookingRepository, IUserRepository userRepository, IMapper mapper)
+        public BookingsController(IUnitOfWork uow, IMapper mapper)
         {
-            _bookingRepository = bookingRepository;
-            _userRepository = userRepository;
+            _uow = uow;
             _mapper = mapper;
         }
 
@@ -31,7 +29,7 @@ namespace api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BookingDto>> GetBooking(int id)
         {
-            var booking = await _bookingRepository.GetBookingByIdAsync(id);
+            var booking = await _uow.BookingRepository.GetBookingByIdAsync(id);
             return Ok(_mapper.Map<BookingDto>(booking));
         }
 
@@ -39,7 +37,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookingDto>>> GetBookings()
         {
-            var bookings = (await _bookingRepository.GetBookingsAsync())
+            var bookings = (await _uow.BookingRepository.GetBookingsAsync())
                 .Where(s => s.Status == "In Process")
                 .OrderBy(b => b.BookFrom);
             return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
@@ -49,7 +47,7 @@ namespace api.Controllers
         [HttpGet("date-bookings")]
         public async Task<ActionResult<IEnumerable<BookingDto>>> GetDateBookings([FromQuery] DateBookingQuery query)
         {
-            var bookings = (await _bookingRepository.GetBookingsAsync()).Where(r => r.RoomId == query.roomId).Where(x => x.BookFrom.Date == query.bookingDate.Date);
+            var bookings = (await _uow.BookingRepository.GetBookingsAsync()).Where(r => r.RoomId == query.roomId).Where(x => x.BookFrom.Date == query.bookingDate.Date);
             return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
         }
 
@@ -58,7 +56,7 @@ namespace api.Controllers
         public async Task<ActionResult<IEnumerable<BookingDto>>> GetUserBookings()
         {
             var userId = User.GetUserId();
-            var bookings = await _bookingRepository.GetBookingsByUserIdAsync(userId);
+            var bookings = await _uow.BookingRepository.GetBookingsByUserIdAsync(userId);
             return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
         }
 
@@ -69,7 +67,7 @@ namespace api.Controllers
             if (bookingDto is null) return BadRequest("Object is empty");
             if (!FromToValidation(bookingDto.BookFrom, bookingDto.BookTo)) return BadRequest("Invalid datetime input.");
             
-            bool bookingOverlap = (await _bookingRepository.GetBookingsAsync())
+            bool bookingOverlap = (await _uow.BookingRepository.GetBookingsAsync())
                 .Where(r => r.RoomId == roomId)
                 .Any(x => HasOverlap(x.BookFrom, x.BookTo, bookingDto.BookFrom, bookingDto.BookTo));
 
@@ -81,9 +79,9 @@ namespace api.Controllers
             bookingDto.Status = "In Process";
 
             var booking = _mapper.Map<Booking>(bookingDto);
-            _bookingRepository.AddBooking(booking);
+            _uow.BookingRepository.AddBooking(booking);
 
-            if (await _bookingRepository.SaveAllAsync()) return CreatedAtAction(nameof(GetBooking), new { id = booking.Id }, _mapper.Map<BookingDto>(booking));
+            if (await _uow.Complete()) return CreatedAtAction(nameof(GetBooking), new { id = booking.Id }, _mapper.Map<BookingDto>(booking));
 
             return BadRequest("Failed to book a room.");
         }
@@ -92,13 +90,13 @@ namespace api.Controllers
         [HttpDelete("{bookingId}")]
         public async Task<ActionResult> DeleteBooking(int bookingId)
         {
-            var booking = await _bookingRepository.GetBookingByIdAsync(bookingId);
+            var booking = await _uow.BookingRepository.GetBookingByIdAsync(bookingId);
 
             if (booking is null) return NotFound();
 
-            _bookingRepository.RemoveBooking(booking);
+            _uow.BookingRepository.RemoveBooking(booking);
 
-            if (await _bookingRepository.SaveAllAsync()) return Ok();
+            if (await _uow.Complete()) return Ok();
 
             return BadRequest("Failed to delete a booking.");
         }
@@ -107,7 +105,7 @@ namespace api.Controllers
         [HttpPut("{bookingId}")]
         public async Task<ActionResult> FinishBooking(BookingUpdateDto bookingUpdateDto, int bookingId)
         {
-            var booking = await _bookingRepository.GetBookingByIdAsync(bookingId);
+            var booking = await _uow.BookingRepository.GetBookingByIdAsync(bookingId);
 
             if (booking is null) return NotFound();
 
@@ -115,7 +113,7 @@ namespace api.Controllers
 
             _mapper.Map(bookingUpdateDto, booking);
 
-            if (await _bookingRepository.SaveAllAsync()) 
+            if (await _uow.Complete()) 
             {
                 await SendEmailAsync(booking);
                 return NoContent();
@@ -125,7 +123,7 @@ namespace api.Controllers
 
         public async Task SendEmailAsync(Booking booking)
         {
-            var user = await _userRepository.GetUserByIdAsync(booking.UserId);
+            var user = await _uow.UserRepository.GetUserByIdAsync(booking.UserId);
             var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()

@@ -35,11 +35,5 @@ namespace api.Data
         {
             return await _context.Rooms.Include(i => i.Images).Include(b => b.Bookings).ToListAsync();
         }
-
-        public async Task<bool> SaveAllAsync()
-        {
-            var result = await _context.SaveChangesAsync() > 0;
-            return result;
-        }
     }
 }

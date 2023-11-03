@@ -20,7 +20,7 @@ namespace api
 
             // Add services to the container.
 
-            builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles); ;
+            builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             builder.Services.AddDbContext<DataContext>(options =>
             {
@@ -54,11 +54,9 @@ namespace api
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped<ITokenService, TokenService>();
-            builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
             builder.Services.AddScoped<IPhotoService, PhotoService>();
-            builder.Services.AddScoped<IBookingRepository, BookingRepository>();
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             var app = builder.Build();
 
