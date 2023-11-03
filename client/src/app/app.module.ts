@@ -31,6 +31,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FooterComponent } from './footer/footer.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { RulesComponent } from './rules/rules.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { RulesComponent } from './rules/rules.component';
     UserBookingsComponent,
     FooterComponent,
     HasRoleDirective,
-    RulesComponent
+    RulesComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@ import { BookingComponent } from './room-list/room-detail/booking/booking.compon
 import { AuthGuard } from './_guards/auth.guard';
 import { UserBookingsComponent } from './user-bookings/user-bookings.component';
 import { RulesComponent } from './rules/rules.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'room-list', component: RoomListComponent},
   {path: 'room-detail/:id', component: RoomDetailComponent},
   {path: 'rules', component: RulesComponent},
+  {path: 'contacts', component: ContactsComponent},
   {path: '', runGuardsAndResolvers: 'always',
     canActivate:[AuthGuard],
     children:[
