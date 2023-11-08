@@ -15,8 +15,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let booking of bookings">
-              <td>{{booking.bookFrom + 'Z'| date: 'd.MM, H:mm'}}</td>
-              <td>{{booking.bookTo + 'Z' | date: 'd.MM, H:mm'}}</td>
+              <td>{{booking.bookFrom | date: 'd.MM, H:mm'}}</td>
+              <td>{{booking.bookTo | date: 'd.MM, H:mm'}}</td>
               <td>{{booking.username}}</td>
               <td>{{booking.roomId}}</td>
               <td><input value="{{booking.fileUrl}}" [(ngModel)]="booking.fileUrl" type="text" class="form-control"></td>
