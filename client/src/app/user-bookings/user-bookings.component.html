@@ -13,8 +13,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let booking of bookings">
-            <td>{{booking.bookFrom + 'Z'| date: 'd.MM, H:mm'}}</td>
-            <td>{{booking.bookTo + 'Z' | date: 'd.MM, H:mm'}}</td>
+            <td>{{booking.bookFrom | date: 'd.MM, H:mm'}}</td>
+            <td>{{booking.bookTo | date: 'd.MM, H:mm'}}</td>
             <td *ngIf="booking.status === 'In Process'"><i class="fa fa-clock-o"></i></td>
             <td *ngIf="booking.status === 'Finished'"><i class="fa fa-check-circle"></i></td>
             <td><a href="{{booking.fileUrl}}" *ngIf="booking.fileUrl" target="_blank">Архів</a></td>

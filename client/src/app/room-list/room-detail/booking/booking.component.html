@@ -49,7 +49,7 @@
             </div>
             <div class="modal-body">
               <div *ngFor="let booking of bookings">
-                {{ booking.bookFrom + 'Z'| date: 'H:mm' }} - {{ booking.bookTo + 'Z'| date: 'H:mm' }}
+                {{ booking.bookFrom | date: 'H:mm' }} - {{ booking.bookTo | date: 'H:mm' }}
               </div>
             </div>
           </ng-template>

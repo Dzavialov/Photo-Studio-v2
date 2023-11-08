@@ -56,11 +56,11 @@ export class BookingComponent implements OnInit{
     const timePickerEndValue = this.bookingForm.get('timePickerEnd')!.value;
 
     const bookFromDate = new Date(dateValue);
-    bookFromDate.setHours(timePickerStartValue.getHours(), timePickerStartValue.getMinutes());
+    bookFromDate.setHours(timePickerStartValue.getHours(), timePickerStartValue.getMinutes(), 0);
     const bookFrom = bookFromDate.toISOString();
 
     const bookToDate = new Date(dateValue);
-    bookToDate.setHours(timePickerEndValue.getHours(), timePickerEndValue.getMinutes());
+    bookToDate.setHours(timePickerEndValue.getHours(), timePickerEndValue.getMinutes(), 0);
     const bookTo  = bookToDate.toISOString();
 
     this.bookingService.createBooking(this.room!.id, {bookFrom, bookTo}).subscribe({
