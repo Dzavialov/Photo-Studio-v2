@@ -1,0 +1,23 @@
+# fly.toml app configuration file generated for photostudiorainbow on 2023-11-06T15:31:03+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "photostudio-rainbow"
+primary_region = "waw"
+
+[build]
+  image = "dzavialov1409/photostudio:latest"
+
+[env]
+  ASPNETCORE_URLS = "http://+:8080"
+  CloudinarySettings__ApiKey = "131866539255285"
+  CloudinarySettings__CloudName = "dmr2k5f0i"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
