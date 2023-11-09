@@ -22,11 +22,6 @@ namespace api
 
             builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-            //builder.Services.AddDbContext<DataContext>(options =>
-            //{
-            //    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-            //});
-
             builder.Services.AddIdentityCore<User>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
@@ -88,7 +83,6 @@ namespace api
 
             // Configure the HTTP request pipeline.
 
-            //app.UseHttpsRedirection();
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
             app.UseAuthentication();
             app.UseAuthorization();
