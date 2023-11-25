@@ -17,6 +17,7 @@ namespace api.Data
         public IBookingRepository BookingRepository => new BookingRepository(_context);
 
         public IUserRepository UserRepository => new UserRepository(_context);
+        public IEquipmentRepository EquipmentRepository => new EquipmentRepository(_context);
 
         public async Task<bool> Complete()
         {

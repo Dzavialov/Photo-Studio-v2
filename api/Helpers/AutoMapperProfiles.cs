@@ -16,6 +16,10 @@ namespace api.Helpers
             CreateMap<BookingDto, Booking>();
             CreateMap<Booking, BookingDto>();
             CreateMap<BookingUpdateDto, Booking>();
+            CreateMap<EquipmentItemDto, EquipmentItem>();
+            CreateMap<EquipmentItem, EquipmentItemDto>();
+            CreateMap<EquipmentItemUpdateDto, EquipmentItem>();
+            CreateMap<EquipmentItemImage, EquipmentItemImageDto>();
         }
     }
 }

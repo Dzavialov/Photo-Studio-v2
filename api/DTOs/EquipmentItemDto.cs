@@ -1,10 +1,12 @@
-﻿namespace api.Entities
+﻿using api.Entities;
+
+namespace api.DTOs
 {
-    public class Equipment
+    public class EquipmentItemDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public EquipmentImage Images { get; set; }
+        public EquipmentItemImageDto Image { get; set; }
     }
 }
