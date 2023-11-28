@@ -37,6 +37,7 @@ import { CreateEquipmentComponent } from './admin/equipment-management/create-eq
 import { EditEquipmentComponent } from './admin/equipment-management/edit-equipment/edit-equipment.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { EquipmentImageManagementComponent } from './admin/equipment-management/equipment-image-management/equipment-image-management.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { EquipmentImageManagementComponent } from './admin/equipment-management/
     TimepickerModule.forRoot(),
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
-    FileUploadModule
+    FileUploadModule,
+    CarouselModule.forRoot()
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

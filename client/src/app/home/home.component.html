@@ -1,25 +1,29 @@
-<div class="container px-4 px-lg-5">
-  <div class="card card-top text-bg-light">
-    <div class="card-body">
-      <div class="row gx-4 gx-lg-5 align-items-center my-5">
-        <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="assets/studio.png" alt="Studio image" />
-        </div>
-        <div class="col-lg-5">
-          <h1 class="font-weight-light">Ласкаво просимо до фотостудії «Веселка»</h1>
-          <p>Запрошуємо вас в чарівний світ кольорів та мрій, де кожен момент стає незабутнім шедевром. Фотостудія
-            "Веселка" - це місце, де ми втілюємо ваші найкращі миті в життя неймовірними зображеннями.
-
-            Наша команда професіоналів готова зробити кожну вашу фотосесію особливою і неповторною. Ми спеціалізуємося
-            на різних жанрах фотографії, від портретів та студійних зйомок до фотоісторій, святкових подій та весіль. У
-            нас ви знайдете індивідуальний підхід до кожного клієнта.
-
-            Наша фотостудія обладнана сучасними технологіями та професійним обладнанням, щоб забезпечити найвищу якість
-            фотографій. Ми ретельно працюємо над кожним кадром, щоб дарувати вам найкращі знімки, які ви зможете тримати
-            в своєму серці назавжди.</p>
-        </div>
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="w-75">
+        <carousel [isAnimated]="true">
+          <slide>
+            <img src="assets/slide1.jpg" alt="first slide" style="display: block; width: 100%;" class="rounded">
+            <div class="carousel-caption d-none d-md-block">
+              <h3>Великий вибір кімнат та декорацій</h3>
+            </div>
+          </slide>
+          <slide>
+            <img src="assets/slide2.jpg" alt="second slide" style="display: block; width: 100%;" class="rounded">
+            <div class="carousel-caption d-none d-md-block">
+              <h3>Першокласні фотографи</h3>
+            </div>
+          </slide>
+          <slide>
+            <img src="assets/slide3.jpg" alt="third slide" style="display: block; width: 100%;" class="rounded">
+            <div class="carousel-caption d-none d-md-block">
+              <h3>Якісний сервіс</h3>
+            </div>
+          </slide>
+        </carousel>
       </div>
     </div>
-  </div>
+
 
   <div class="card text-white bg-secondary my-5 py-4 text-center">
     <div class="card-body">

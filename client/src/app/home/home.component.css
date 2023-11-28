@@ -1,3 +1,7 @@
 .card-top{
   max-width: 100%;
 }
+
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+}
