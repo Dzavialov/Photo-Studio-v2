@@ -89,6 +89,8 @@ namespace api.Controllers
 
             if (eqItem is null) return NotFound();
 
+            if (eqItem.Image is not null) return BadRequest("This equipment item already has image.");
+
             var result = await _photoService.AddPhotoAsync(file);
 
             if (result.Error is not null) return BadRequest(result.Error.Message);
@@ -103,15 +105,15 @@ namespace api.Controllers
 
             if (await _uow.Complete())
             {
-                return CreatedAtAction(nameof(GetEquipmentItem), new { id = eqItem.Id }, _mapper.Map<EquipmentItemImageDto>(eqItem));
+                return CreatedAtAction(nameof(GetEquipmentItem), new { id = eqItem.Id }, _mapper.Map<EquipmentItemImageDto>(photo));
             }
 
             return BadRequest("Failed to add an image.");
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("delete-image/{itemId}/{imageId}")]
-        public async Task<ActionResult> DeletePhoto(int itemId, int imageId)
+        [HttpDelete("delete-image/{itemId}")]
+        public async Task<ActionResult> DeletePhoto(int itemId)
         {
             var eqItem = await _uow.EquipmentRepository.GetEquipmentItemByIdAsync(itemId);
 

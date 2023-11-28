@@ -2,25 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs';
-import { Room } from 'src/app/_models/Room';
+import { EquipmentItem } from 'src/app/_models/EquipmentItem';
 import { User } from 'src/app/_models/User';
 import { AccountService } from 'src/app/_services/account.service';
-import { RoomService } from 'src/app/_services/room.service';
+import { EquipmentService } from 'src/app/_services/equipment.service';
 import { environment } from 'src/environments/environment.development';
 
 @Component({
-  selector: 'app-image-management',
-  templateUrl: './image-management.component.html',
-  styleUrls: ['./image-management.component.css']
+  selector: 'app-equipment-image-management',
+  templateUrl: './equipment-image-management.component.html',
+  styleUrls: ['./equipment-image-management.component.css']
 })
-export class ImageManagementComponent implements OnInit{
-  room: Room | undefined;
+export class EquipmentImageManagementComponent implements OnInit{
+  equipment: EquipmentItem | undefined;
   uploader: FileUploader | undefined;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   user: User | undefined;
 
-  constructor(private route: ActivatedRoute, private roomService: RoomService,
+  constructor(private route: ActivatedRoute, private equipmentService: EquipmentService,
     private accountService: AccountService) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => {
@@ -31,11 +31,11 @@ export class ImageManagementComponent implements OnInit{
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
-    const roomIdFromRoute = Number(routeParams.get('id'));
+    const itemIdFromRoute = Number(routeParams.get('id'));
 
-    this.roomService.getRoom(roomIdFromRoute).subscribe({
+    this.equipmentService.getEquipmentItem(itemIdFromRoute).subscribe({
       next: result => {
-        this.room = result;
+        this.equipment = result;
         this.initializeUploader();
       }
     })
@@ -43,7 +43,7 @@ export class ImageManagementComponent implements OnInit{
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'rooms/add-image/' + this.room?.id,
+      url: this.baseUrl + 'equipment/add-image/' + this.equipment?.id,
       authToken: 'Bearer ' + this.user?.token,
       isHTML5: true,
       allowedFileType: ['image'],
@@ -59,7 +59,7 @@ export class ImageManagementComponent implements OnInit{
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const photo = JSON.parse(response);
-        this.room?.images.push(photo);
+        this.equipment!.image = photo;
       }
     }
   }
@@ -68,10 +68,10 @@ export class ImageManagementComponent implements OnInit{
     this.hasBaseDropZoneOver = e;
   }
 
-  deleteImage(imageId: number) {
-    this.roomService.deleteImage(this.room!.id, imageId).subscribe({
+  deleteImage() {
+    this.equipmentService.deleteImage(this.equipment!.id).subscribe({
       next: () => {
-          this.room!.images = this.room!.images.filter(x => x.id !== imageId)
+          this.equipment!.image = null as any;
         }
       });
   }

@@ -14,7 +14,7 @@
         <tbody>
           <tr *ngFor="let room of rooms">
             <td>{{room.name}}</td>
-            <td><button class="btn btn-success" [routerLink]="['/image-management', room.id]">Зображення</button></td>
+            <td><button class="btn btn-success" [routerLink]="['/room-image-management', room.id]">Зображення</button></td>
             <td><button class="btn btn-warning" (click)="onEditRoom(room.id)" >Редагувати</button></td>
             <td><button class="btn btn-danger" (click)="deleteRoom(room.id)" ><i class="fa fa-trash"></i></button></td>
           </tr>

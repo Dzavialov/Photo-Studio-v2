@@ -1,0 +1,32 @@
+<button class="btn btn-info" (click)="onEditItem()">Назад</button>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <form [formGroup]="editItemForm" (ngSubmit)="editItem()" autocomplete="off">
+      <h2 class="text-center text-primary">
+        Редагування обладнання
+      </h2>
+      <hr>
+        <div class="mb-3">
+          <input type="text"
+            class="form-control"
+            name="name"
+            formControlName="name"
+            placeholder="Назва обладнання"
+          >
+        </div>
+
+        <div class="mb-3">
+          <input type="text"
+            class="form-control"
+            name="description"
+            formControlName="description"
+            placeholder="Опис обладнання"
+          >
+        </div>
+
+      <div class="text-center">
+        <button class="btn btn-success me-2" type="submit">Зберегти</button>
+      </div>
+    </form>
+  </div>
+</div>

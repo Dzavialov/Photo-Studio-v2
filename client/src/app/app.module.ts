@@ -16,8 +16,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { RoomManagementComponent } from './admin/room-management/room-management.component';
 import { BookingManagementComponent } from './admin/booking-management/booking-management.component';
 import { CreateRoomComponent } from './admin/room-management/create-room/create-room.component';
-import { ImageManagementComponent } from './admin/room-management/image-management/image-management.component';
-import { FileUploadModule } from 'ng2-file-upload';
+import { RoomImageManagementComponent } from './admin/room-management/room-image-management/room-image-management.component';
 import { EditRoomComponent } from './admin/room-management/edit-room/edit-room.component';
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomDetailComponent } from './room-list/room-detail/room-detail.component';
@@ -32,6 +31,12 @@ import { FooterComponent } from './footer/footer.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { RulesComponent } from './rules/rules.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { EquipmentListComponent } from './equipment-list/equipment-list.component';
+import { EquipmentManagementComponent } from './admin/equipment-management/equipment-management.component';
+import { CreateEquipmentComponent } from './admin/equipment-management/create-equipment/create-equipment.component';
+import { EditEquipmentComponent } from './admin/equipment-management/edit-equipment/edit-equipment.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { EquipmentImageManagementComponent } from './admin/equipment-management/equipment-image-management/equipment-image-management.component';
 
 
 @NgModule({
@@ -44,7 +49,7 @@ import { ContactsComponent } from './contacts/contacts.component';
     RoomManagementComponent,
     BookingManagementComponent,
     CreateRoomComponent,
-    ImageManagementComponent,
+    RoomImageManagementComponent,
     EditRoomComponent,
     RoomListComponent,
     RoomDetailComponent,
@@ -53,7 +58,12 @@ import { ContactsComponent } from './contacts/contacts.component';
     FooterComponent,
     HasRoleDirective,
     RulesComponent,
-    ContactsComponent
+    ContactsComponent,
+    EquipmentListComponent,
+    EquipmentManagementComponent,
+    CreateEquipmentComponent,
+    EditEquipmentComponent,
+    EquipmentImageManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -66,12 +76,12 @@ import { ContactsComponent } from './contacts/contacts.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     TabsModule.forRoot(),
-    FileUploadModule,
     NgxGalleryModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
+    FileUploadModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

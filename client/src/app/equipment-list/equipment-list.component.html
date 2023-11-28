@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col mt-3">
+      <h1>Наше обладнання</h1>
+      <hr>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-md-3 mt-5" *ngFor="let item of equipment">
+        <div class="card">
+          <img src="{{item.image.url}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+            <p class="card-text">{{item.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

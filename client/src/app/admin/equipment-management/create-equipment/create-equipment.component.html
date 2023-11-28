@@ -1,0 +1,32 @@
+<button class="btn btn-info" (click)="onCreateItem()">Назад</button>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <form [formGroup]="createEquipmentForm" (ngSubmit)="createItem()" autocomplete="off">
+      <h2 class="text-center text-primary">
+        Створення обладнання
+      </h2>
+      <hr>
+      <div class="mb-3">
+        <input type="text"
+          class="form-control"
+          name="name"
+          formControlName="name"
+          placeholder="Назва обладнання"
+        >
+      </div>
+
+      <div class="mb-3">
+        <input type="text"
+          class="form-control"
+          name="description"
+          formControlName="description"
+          placeholder="Опис обладнання"
+        >
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-success me-2" type="submit">Створити</button>
+      </div>
+    </form>
+  </div>
+</div>
