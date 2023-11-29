@@ -15,5 +15,6 @@ namespace api.Data
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<EquipmentItem> EquipmentItems { get; set; }
+        public DbSet<EditItem> EditItems { get; set; }
     }
 }

@@ -13,9 +13,9 @@ namespace api.Data
             _context = context;
         }
 
-        public void AddEquipment(EquipmentItem equipment)
+        public void AddEquipment(EquipmentItem equipmentItem)
         {
-           _context.EquipmentItems.Add(equipment);
+           _context.EquipmentItems.Add(equipmentItem);
         }
 
         public async Task<IEnumerable<EquipmentItem>> GetEquipmentAsync()
@@ -28,9 +28,9 @@ namespace api.Data
             return await _context.EquipmentItems.Include(i => i.Image).SingleOrDefaultAsync(e => e.Id == id);
         }
 
-        public void RemoveEquipment(EquipmentItem equipment)
+        public void RemoveEquipment(EquipmentItem equipmentItem)
         {
-            _context.EquipmentItems.Remove(equipment);
+            _context.EquipmentItems.Remove(equipmentItem);
         }
     }
 }
