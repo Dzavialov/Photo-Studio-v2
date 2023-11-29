@@ -18,6 +18,7 @@ namespace api.Data
 
         public IUserRepository UserRepository => new UserRepository(_context);
         public IEquipmentRepository EquipmentRepository => new EquipmentRepository(_context);
+        public IEditRepository EditRepository => new EditRepository(_context);
 
         public async Task<bool> Complete()
         {

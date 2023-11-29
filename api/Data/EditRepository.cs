@@ -20,12 +20,12 @@ namespace api.Data
 
         public async Task<EditItem> GetEditItemByIdAsync(int id)
         {
-            return await _context.EditItems.Include(i => i.Images).SingleOrDefaultAsync(e => e.Id == id);
+            return await _context.EditItems.SingleOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<IEnumerable<EditItem>> GetEditItemsAsync()
         {
-            return await _context.EditItems.Include(i => i.Images).ToListAsync();
+            return await _context.EditItems.ToListAsync();
         }
 
         public void RemoveEditItem(EditItem editItem)

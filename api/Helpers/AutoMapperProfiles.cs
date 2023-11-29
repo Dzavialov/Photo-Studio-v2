@@ -20,6 +20,9 @@ namespace api.Helpers
             CreateMap<EquipmentItem, EquipmentItemDto>();
             CreateMap<EquipmentItemUpdateDto, EquipmentItem>();
             CreateMap<EquipmentItemImage, EquipmentItemImageDto>();
+            CreateMap<EditItemDto, EditItem>();
+            CreateMap<EditItem, EditItemDto>();
+            CreateMap<EditItemUpdateDto, EditItem>();
         }
     }
 }

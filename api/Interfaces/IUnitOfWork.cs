@@ -6,6 +6,7 @@
         IBookingRepository BookingRepository { get; }
         IUserRepository UserRepository { get; }
         IEquipmentRepository EquipmentRepository { get; }
+        IEditRepository EditRepository { get; }
         Task<bool> Complete();
     }
 }

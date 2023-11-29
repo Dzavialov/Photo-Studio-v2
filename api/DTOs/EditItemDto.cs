@@ -1,6 +1,8 @@
-﻿namespace api.Entities
+﻿using api.Entities;
+
+namespace api.DTOs
 {
-    public class EditItem
+    public class EditItemDto
     {
         public int Id { get; set; }
         public string UserMessage { get; set; }
@@ -9,6 +11,5 @@
         public string Status { get; set; }
         public string Username { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
     }
 }
