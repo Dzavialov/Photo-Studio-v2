@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <div class="mt-3 w-50">
+    <div class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 25%">Ваш архів</th>
+            <th style="width: 30%">Статус бронювання</th>
+            <th style="width: 40%">Посилання на архів з результатом</th>
+            <th style="width: 5%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of editItems">
+            <td><a href="{{item.inputUrl}}" target="_blank">Ваші файли</a></td>
+            <td *ngIf="item.status === 'In Process'"><i class="fa fa-clock-o"></i></td>
+            <td *ngIf="item.status === 'Finished'"><i class="fa fa-check-circle"></i></td>
+            <td><a href="{{item.fileUrl}}" *ngIf="item.fileUrl" target="_blank">Архів з результатом</a></td>
+            <td><button class="btn btn-danger" (click)="deleteBooking(item.id)" ><i class="fa fa-trash"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

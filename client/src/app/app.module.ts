@@ -38,6 +38,9 @@ import { EditEquipmentComponent } from './admin/equipment-management/edit-equipm
 import { FileUploadModule } from 'ng2-file-upload';
 import { EquipmentImageManagementComponent } from './admin/equipment-management/equipment-image-management/equipment-image-management.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { UserEditsComponent } from './user-edits/user-edits.component';
+import { CreateEditComponent } from './create-edit/create-edit.component';
+import { EditManagementComponent } from './admin/edit-management/edit-management.component';
 
 
 @NgModule({
@@ -64,7 +67,10 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     EquipmentManagementComponent,
     CreateEquipmentComponent,
     EditEquipmentComponent,
-    EquipmentImageManagementComponent
+    EquipmentImageManagementComponent,
+    UserEditsComponent,
+    CreateEditComponent,
+    EditManagementComponent
   ],
   imports: [
     BrowserModule,

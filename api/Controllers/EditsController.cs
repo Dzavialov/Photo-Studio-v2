@@ -41,6 +41,15 @@ namespace api.Controllers
         }
 
         [Authorize(Roles = "User")]
+        [HttpGet("user-edits")]
+        public async Task<ActionResult<IEnumerable<EditItemDto>>> GetUserEditItems()
+        {
+            var userId = User.GetUserId();
+            var editItems = await _uow.EditRepository.GetEditItemsByUserIdAsync(userId);
+            return Ok(_mapper.Map<IEnumerable<EditItemDto>>(editItems));
+        }
+
+        [Authorize(Roles = "User")]
         [HttpPost("create-edit")]
         public async Task<ActionResult<EditItemDto>> CreateEditItem(EditItemDto editItemDto)
         {

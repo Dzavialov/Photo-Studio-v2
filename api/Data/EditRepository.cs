@@ -28,6 +28,11 @@ namespace api.Data
             return await _context.EditItems.ToListAsync();
         }
 
+        public async Task<IEnumerable<EditItem>> GetEditItemsByUserIdAsync(int id)
+        {
+            return await _context.EditItems.Where(u => u.UserId == id).ToListAsync();
+        }
+
         public void RemoveEditItem(EditItem editItem)
         {
             _context.EditItems.Remove(editItem);

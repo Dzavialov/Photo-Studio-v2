@@ -8,5 +8,6 @@ namespace api.Interfaces
         void RemoveEditItem(EditItem editItem);
         Task<IEnumerable<EditItem>> GetEditItemsAsync();
         Task<EditItem> GetEditItemByIdAsync(int id);
+        Task<IEnumerable<EditItem>> GetEditItemsByUserIdAsync(int id);
     }
 }

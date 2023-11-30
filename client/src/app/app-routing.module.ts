@@ -14,6 +14,8 @@ import { RulesComponent } from './rules/rules.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { EquipmentListComponent } from './equipment-list/equipment-list.component';
 import { EquipmentImageManagementComponent } from './admin/equipment-management/equipment-image-management/equipment-image-management.component';
+import { UserEditsComponent } from './user-edits/user-edits.component';
+import { CreateEditComponent } from './create-edit/create-edit.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -29,7 +31,9 @@ const routes: Routes = [
       {path: 'admin-panel', runGuardsAndResolvers: 'always', canActivate: [AdminGuard], component: AdminPanelComponent},
       {path: 'room-image-management/:id', runGuardsAndResolvers: 'always', canActivate: [AdminGuard], component: RoomImageManagementComponent},
       {path: 'equipment-image-management/:id', runGuardsAndResolvers: 'always', canActivate: [AdminGuard], component: EquipmentImageManagementComponent},
-      {path: 'user-bookings', canActivate: [AuthGuard], component: UserBookingsComponent}
+      {path: 'user-bookings', canActivate: [AuthGuard], component: UserBookingsComponent},
+      {path: 'user-edits', canActivate: [AuthGuard], component: UserEditsComponent},
+      {path: 'create-edit', canActivate: [AuthGuard], component: CreateEditComponent}
     ]}
 ];
 

@@ -20,7 +20,6 @@ export class UserBookingsComponent implements OnInit{
     this.bookingService.getUserBooking().subscribe({
       next: result => {
         this.bookings = result
-        console.log(this.bookings);
       }
     })
   }
