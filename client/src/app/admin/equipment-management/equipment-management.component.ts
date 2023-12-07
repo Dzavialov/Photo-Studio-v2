@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { EquipmentItem } from 'src/app/_models/EquipmentItem';
 import { EquipmentService } from 'src/app/_services/equipment.service';
 
@@ -10,19 +11,25 @@ import { EquipmentService } from 'src/app/_services/equipment.service';
 export class EquipmentManagementComponent {
   equipment: EquipmentItem[] | undefined;
   itemToEditId: number | undefined;
+  roomId: number | undefined;
   createItemMode = false;
   editItemMode = false;
 
-  constructor (private equipmentService: EquipmentService) {}
+  constructor (private equipmentService: EquipmentService, private route: ActivatedRoute) {}
+
+
 
   ngOnInit(): void {
-    this.getItems();
+    const routeParams = this.route.snapshot.paramMap;
+    this.roomId = Number(routeParams.get('id'));
+
+    this.equipmentService.getEquipmentItems(this.roomId).subscribe({
+      next: result => this.equipment = result
+    })
   }
 
   getItems() {
-    this.equipmentService.getGetEquipmentItems().subscribe({
-      next: result => this.equipment = result
-    })
+
   }
 
   deleteItem(id: number) {
@@ -45,8 +52,8 @@ export class EquipmentManagementComponent {
     this.ngOnInit();
   }
 
-  onEditItem(roomId: number) {
+  onEditItem(itemId: number) {
     this.editItemMode = !this.editItemMode;
-    this.itemToEditId = roomId;
+    this.itemToEditId = itemId;
   }
 }

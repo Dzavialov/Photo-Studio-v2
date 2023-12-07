@@ -83,6 +83,7 @@ namespace api
 
             // Configure the HTTP request pipeline.
 
+            app.UseHttpsRedirection();
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
             app.UseAuthentication();
             app.UseAuthorization();
@@ -94,21 +95,21 @@ namespace api
 
             app.MapFallbackToController("Index", "Fallback");
 
-            //using var scope = app.Services.CreateScope();
-            //var services = scope.ServiceProvider;
-            //try
-            //{
-            //    var context = services.GetRequiredService<DataContext>();
-            //    var userManager = services.GetRequiredService<UserManager<User>>();
-            //    var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
-            //    await context.Database.MigrateAsync();
-            //    await Seed.SeedRoles(userManager, roleManager);
-            //}
-            //catch (Exception ex)
-            //{
-            //    var logger = services.GetService<ILogger<Program>>();
-            //    logger.LogError(ex, "An error occured during migration.");
-            //}
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            try
+            {
+                var context = services.GetRequiredService<DataContext>();
+                var userManager = services.GetRequiredService<UserManager<User>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
+                await context.Database.MigrateAsync();
+                await Seed.SeedRoles(userManager, roleManager);
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetService<ILogger<Program>>();
+                logger.LogError(ex, "An error occured during migration.");
+            }
 
             app.Run();
         }

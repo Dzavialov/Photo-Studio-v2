@@ -8,5 +8,6 @@
         public string AdditionalInformation { get; set; }
         public List<RoomImage> Images { get; set; }
         public List<Booking> Bookings { get; set; }
+        public List<EquipmentItem> EquipmentItems { get; set; }
     }
 }

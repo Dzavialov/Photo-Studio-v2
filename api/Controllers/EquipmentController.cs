@@ -22,15 +22,15 @@ namespace api.Controllers
             _photoService = photoService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<EquipmentItemDto>>> GetEquipmentItems()
+        [HttpGet("{roomId}")]
+        public async Task<ActionResult<IEnumerable<EquipmentItemDto>>> GetRoomEquipmentItems(int roomId)
         {
-            var eqItems = await _uow.EquipmentRepository.GetEquipmentAsync();
+            var eqItems = (await _uow.EquipmentRepository.GetEquipmentAsync()).Where(e => e.RoomId == roomId);
 
             return Ok(_mapper.Map<IEnumerable<EquipmentItemDto>>(eqItems));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("get-item/{id}")]
         public async Task<ActionResult<EquipmentItemDto>> GetEquipmentItem(int id)
         {
             var eqItem = await _uow.EquipmentRepository.GetEquipmentItemByIdAsync(id);
@@ -38,10 +38,12 @@ namespace api.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("create-item")]
-        public async Task<ActionResult<EquipmentItemDto>> CreateEquipmentItem(EquipmentItemDto eqItemDto)
+        [HttpPost("create-item/{roomId}")]
+        public async Task<ActionResult<EquipmentItemDto>> CreateEquipmentItem(EquipmentItemDto eqItemDto, [FromRoute]int roomId)
         {
             if (eqItemDto is null) return BadRequest("Object is empty");
+
+            eqItemDto.RoomId = roomId;
 
             var eqItem = _mapper.Map<EquipmentItemDto, EquipmentItem>(eqItemDto);
             _uow.EquipmentRepository.AddEquipment(eqItem);

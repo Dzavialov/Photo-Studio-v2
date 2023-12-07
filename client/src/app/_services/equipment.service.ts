@@ -11,16 +11,16 @@ export class EquipmentService {
 
   constructor(private http: HttpClient) { }
 
-  getGetEquipmentItems() {
-    return this.http.get<EquipmentItem[]>(this.baseUrl + 'equipment');
+  getEquipmentItems(roomId: number) {
+    return this.http.get<EquipmentItem[]>(this.baseUrl + 'equipment/' + roomId);
   }
 
   getEquipmentItem(id: number) {
-    return this.http.get<EquipmentItem>(this.baseUrl + 'equipment/' + id);
+    return this.http.get<EquipmentItem>(this.baseUrl + 'equipment/get-item/' + id);
   }
 
-  createEquipmentItem(model: any) {
-    return this.http.post<EquipmentItem>(this.baseUrl + 'equipment/create-item', model);
+  createEquipmentItem(roomId: number, model: any) {
+    return this.http.post<EquipmentItem>(this.baseUrl + 'equipment/create-item/' + roomId, model);
   }
 
   editEquipmentItem(id:number, model: any) {

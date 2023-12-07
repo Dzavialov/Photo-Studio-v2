@@ -5,4 +5,5 @@ export interface EquipmentItem {
   name: string;
   description: string;
   image: Image;
+  roomId: number;
 }

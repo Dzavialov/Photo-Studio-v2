@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using api.Data;
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231207121818_AddedEquipmentPropertyToRoom")]
+    partial class AddedEquipmentPropertyToRoom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,7 +242,7 @@ namespace api.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int?>("RoomId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -440,7 +443,7 @@ namespace api.Data.Migrations
 
             modelBuilder.Entity("api.Entities.Booking", b =>
                 {
-                    b.HasOne("api.Entities.Room", "Room")
+                    b.HasOne("api.Entities.Room", "Rooms")
                         .WithMany("Bookings")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -452,7 +455,7 @@ namespace api.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Room");
+                    b.Navigation("Rooms");
 
                     b.Navigation("User");
                 });
@@ -470,13 +473,9 @@ namespace api.Data.Migrations
 
             modelBuilder.Entity("api.Entities.EquipmentItem", b =>
                 {
-                    b.HasOne("api.Entities.Room", "Room")
+                    b.HasOne("api.Entities.Room", null)
                         .WithMany("EquipmentItems")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Room");
+                        .HasForeignKey("RoomId");
                 });
 
             modelBuilder.Entity("api.Entities.EquipmentItemImage", b =>

@@ -10,5 +10,6 @@ namespace api.DTOs
         public string AdditionalInformation { get; set; }
         public List<RoomImageDto> Images { get; set; }
         public List<BookingDto> Bookings { get; set; }
+        public List<EquipmentItemDto> EquipmentItems { get; set; }
     }
 }

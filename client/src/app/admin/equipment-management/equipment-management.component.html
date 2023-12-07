@@ -1,6 +1,7 @@
 <div class="container mt-4">
   <div *ngIf="!createItemMode && !editItemMode" class="mt-3 w-50">
-    <button type="button" class="btn btn-primary" (click)="onCreateItem()">Створити</button>
+    <button type="button" class="btn btn-info mb-4 d-flex" [routerLink]="['/admin-panel']">Назад</button>
+    <button type="button" class="btn btn-primary mb-2" (click)="onCreateItem()">Створити</button>
     <div class="row">
       <table class="table">
         <thead>
@@ -24,7 +25,7 @@
   </div>
 
   <div *ngIf="createItemMode" class="mt-3">
-    <app-create-equipment [createItemModeChild]="createItemMode" (createItemModeChange)="getCreateMode($event)"></app-create-equipment>
+    <app-create-equipment [createItemModeChild]="createItemMode" [roomId]="roomId" (createItemModeChange)="getCreateMode($event)"></app-create-equipment>
   </div>
   <div *ngIf="editItemMode" class="mt-3">
     <app-edit-equipment [itemIdChild]="itemToEditId" [editItemModeChild]="editItemMode" (editItemModeChange)="getEditMode($event)"></app-edit-equipment>

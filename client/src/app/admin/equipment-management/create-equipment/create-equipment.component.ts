@@ -11,6 +11,7 @@ import { EquipmentService } from 'src/app/_services/equipment.service';
 export class CreateEquipmentComponent {
   createEquipmentForm : FormGroup = new FormGroup({});
   @Input() createItemModeChild: boolean | undefined;
+  @Input() roomId: number | undefined;
   @Output() createItemModeChange = new EventEmitter<boolean>();
 
   constructor(private equipmentService: EquipmentService, private router: Router, private fb: FormBuilder) {}
@@ -33,8 +34,7 @@ export class CreateEquipmentComponent {
 
   createItem() {
     const values = {...this.createEquipmentForm.value};
-
-    this.equipmentService.createEquipmentItem(values).subscribe({
+    this.equipmentService.createEquipmentItem(this.roomId!, values).subscribe({
       next: () => {
         this.onCreateItem();
       }

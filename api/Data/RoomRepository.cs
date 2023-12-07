@@ -28,12 +28,12 @@ namespace api.Data
 
         public async Task<Room> GetRoomByIdAsync(int id)
         {
-            return await _context.Rooms.Include(i => i.Images).Include(b => b.Bookings).SingleOrDefaultAsync(r => r.Id == id);
+            return await _context.Rooms.Include(i => i.Images).Include(b => b.Bookings).Include(e => e.EquipmentItems).SingleOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<IEnumerable<Room>> GetRoomsAsync()
         {
-            return await _context.Rooms.Include(i => i.Images).Include(b => b.Bookings).ToListAsync();
+            return await _context.Rooms.Include(i => i.Images).Include(b => b.Bookings).Include(e => e.EquipmentItems).ToListAsync();
         }
     }
 }
